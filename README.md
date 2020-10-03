@@ -1,43 +1,43 @@
-### Let us know how we’re doing!  
-Please take a moment to fill out the [Microsoft Cloud Workshop Survey](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbRyEtIpX7sDdChuWsXhzKJXJUNjFBVkROWDhSSVdYT0dSRkY4UVFCVzZBVy4u) and help us improve our offerings.
+### ぜひご意見をお聞かせください!  
+[Microsoft Cloud Workshop 調査](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbRyEtIpX7sDdChuWsXhzKJXJUNjFBVkROWDhSSVdYT0dSRkY4UVFCVzZBVy4u) にご記入いただき、このワークショップの改善にご協力をお願いします。
 
-# Implementing Windows Virtual Desktop in the enterprise
+# エンタープライズでの Windows Virtual Desktop の実装
 
-Contoso Healthcare, headquartered in Los Angeles, California, is a national healthcare provider with a network of affiliate hospitals and doctor’s offices located throughout North America. These locations continue to grow through acquisition.  The nature of their business requires a high level of security of personal identifiable information (PII) for their employees.
+カリフォルニア州ロサンゼルスに本拠を置く Contoso Healthcare は、北米全土に連携病院とクリニックのネットワークを有する国立医療機関です。このネットワークは買収を通じて成長し続けています。同機関のビジネスの性質として、従業員の PII (個人の特定が可能な情報) の高度なセキュリティを必要としています。 
 
-Contoso currently has approximately 250 workstations within their environment with business applications for non-clinical users from the Developer, Finance, and Knowledge departments. Contoso is currently supporting existing data centers in California and Northern Virginia with VMware for the server control plane and a partial deployment of Citrix virtual desktop infrastructure. These locations are connected with a private WAN connection and a backup VPN over broadband.  
+Contoso の環境内には現在約 250 台のワークステーションがあり、開発者、および財務部門や知財部門の非臨床ユーザーのためのビジネス アプリケーションがインストールされています。Contoso は現在カリフォルニア州およびバージニア州北部で既存のデータ センターをサポートしており、サーバーの制御プレーンに VMware を使用し、Citrix 仮想デスクトップ インフラストラクチャを部分的にデプロイしています。これらの拠点はプライベート WAN 接続とブロードバンドを経由したバックアップ VPN によって接続されています。
 
-September 2020
+2020 年 9 月
 
-## Target audience
+## 対象者
 
-- Infrastructure Specialists
-- Cloud Solution Architects
-- Account Technology Specialists
+- インフラストラクチャ スペシャリスト
+- クラウド ソリューション アーキテクト
+- アカウント テクノロジ スペシャリスト
 
-## Abstracts
+## 要約
 
-### Workshop
+### ワークショップ
 
-In this workshop, you will gain experience designing solutions for Windows Virtual Desktop utilizing Microsoft 365 and Azure technologies.
+このワークショップでは、Microsoft 365 および Azure テクノロジを利用して Windows Virtual Desktop のためのソリューションを設計する経験を積むことができます。
 
-The following components will need to be determined as part of the solutions. The first will consist of Microsoft 365 subscription that will be required to deliver the security requirements, Azure Active Directory, applications, and Windows licensing to users. Next, the Azure infrastructure that is required to support the Windows Virtual Desktop environment will need to be configured. Finally, the networking requirements will need to be determined for connectivity to the current on-premises infrastructure for application servers, and proper access to the user desktops and on-premises network with high security and limited latency.
+ソリューションの一部として、以下のコンポーネントを決定する必要があります。まず最初に、セキュリティ要件、Azure Active Directory、アプリケーション、および Windows ライセンスをユーザーに提供するために必要な Microsoft 365 サブスクリプションです。次に、Windows Virtual Desktop 環境をサポートするために必要な Azure インフラストラクチャを構成する必要があります。最後に、アプリケーション サーバー向けの現在のオンプレミス インフラストラクチャへの接続と、高度なセキュリティと制限された待機時間を設定されたユーザー デスクトップおよびオンプレミスのネットワークへの適切なアクセスのための、ネットワーク要件を決定する必要があります。
 
-At the end of this workshop, you will be better able to leverage various Microsoft 365 and Azure technologies together to build a secure, complex and robust Windows Virtual Desktop infrastructure.
+このワークショップを完了すると、さまざまな Microsoft 365 および Azure テクノロジを共に活用して、複雑かつ安全で堅牢な Windows Virtual Desktop インフラストラクチャをより効果的に構築できるようになります。
 
-### Whiteboard design session
+### ホワイトボード設計セッション
 
-In the whiteboard design session you will work in groups to design a Windows Virtual Desktop solution using Microsoft 365 and Azure technologies. Your solution will consider the necessary Microsoft 365 subscription required for Windows 10 Enterprise multi-user licensing, as well as the Azure Active Directory and security needs for a healthcare provider.  You will need to determine how to connect Azure to the current VMware and Citrix on-premises infrastructure and the connections needed to connect this infrastructure to Azure for application access. Finally, you will need to design the Windows Virtual Desktop solution utilizing Azure virtual machines with availability and scalability to handle 24x7 operations without performance degradation.
+ホワイトボード設計セッションでは、グループで作業して、Microsoft 365 および Azure テクノロジを使用して Windows Virtual Desktop ソリューションを設計します。ソリューションでは、Windows 10 Enterprise のマルチユーザー ライセンスに必要な Microsoft 365 サブスクリプションと、Azure Active Directory および医療提供者のためのセキュリティ ニーズについても考慮する必要があります。Azure を現在の VMware および Citrix のオンプレミス インフラストラクチャに接続する方法と、アプリケーションにアクセスするためにこのインフラストラクチャを Azure に接続する方法も決定することが必要です。最後に、Azure 仮想マシンを活用して、パフォーマンス低下を招くことなく 24 時間 365 日の業務に対応できる可用性とスケーラビリティを備えた Windows Virtual Desktop ソリューションを設計する必要があります。
 
-At the end of the whiteboard design session, you will be better able to design a solution that leverages Microsoft 365 and Azure technologies together to build a secure and robust Windows Virtual Desktop infrastructure.
+このホワイトボード設計セッションを完了すると、Microsoft 365 および Azure テクノロジを共に活用して、安全で堅牢な Windows Virtual Desktop インフラストラクチャを構築するためのソリューションをより効果的に設計できるようになります。
 
-### Hands-on lab
+### ハンズオン ラボ
 
-In the hands-on lab, you will implement a Windows Virtual Desktop infrastructure that meet the requirements of the organization.  This will include assigning the appropriate Microsoft 365 subscription needed for Windows 10 multi-user licensing.  The proper Azure Active Directory role needed to create and configure the resources within the Microsoft 365 and Azure subscriptions will need to be assigned.  You will need to create the network infrastructure to connect the Azure network to the on-premises network, and allow users to access the Windows Virtual Desktop infrastructure within Azure.  The Azure virtual machine infrastructure will need to be deployed to the Windows Virtual Desktop architecture standards.  Finally, you will create a standard image for the Windows Virtual Desktop.
+ハンズオン ラボでは、組織の要件を満たす Windows Virtual Desktop インフラストラクチャを実装します。これには、Windows 10 マルチユーザー ライセンスに必要となる適切な Microsoft 365 サブスクリプションを割り当てることが含まれます。Microsoft 365 および Azure サブスクリプション内のリソースを作成および構成するために必要とされる適切な Azure Active Directory ロールを割り当てることが必要です。Azure ネットワークをオンプレミス ネットワークに接続するためのネットワーク インフラストラクチャを作成し、ユーザーが Azure 内で Windows Virtual Desktop インフラストラクチャにアクセスできるようにする必要があります。Azure 仮想マシン インフラストラクチャは、Windows Virtual Desktop アーキテクチャ標準に合わせてデプロイされることが必要です。最後に、Windows Virtual Desktop の標準イメージを作成します。
 
-At the end of this hands-on lab, you will be better able to build a secure and robust Windows Virtual Desktop infrastructure.
+このハンズオン ラボを完了すると、安全で堅牢な Windows Virtual Desktop インフラストラクチャをより効果的に構築できるようになります。
 
-## Azure services and related products
+## Azure サービスと関連製品
 
 - Windows Virtual Desktop
 - Microsoft 365
@@ -45,20 +45,27 @@ At the end of this hands-on lab, you will be better able to build a secure and r
 - Azure Networking
 - Azure Virtual Machines
 
-## Related references
+## 関連リファレンス
 
 - [MCW](https://github.com/Microsoft/MCW)
 
-## Help & Support
+## ヘルプおよびサポート
 
-We welcome feedback and comments from Microsoft SMEs & learning partners who deliver MCWs.  
+マイクロソフト SME および MCW を提供する学習パートナーからのフィードバックおよびコメントをお待ちしております。
 
-***Having trouble?***
+**日本語版について**
 
-- First, verify you have followed all written lab instructions (including the Before the Hands-on lab document).
-- Next, submit an issue with a detailed description of the problem.
-- Do not submit pull requests. Our content authors will make all changes and submit pull requests for approval.
+このリポジトリは、2020年9月時点のMCW-Implementing-Windows-Virtual-Desktop-in-the-enterpriseの日本語訳です。
+問題のある個所は一部、手順をアップデートしています。
 
-If you are planning to present a workshop, *review and test the materials early*! We recommend at least two weeks prior.
+**お困りですか?**
 
-### Please allow 5 - 10 business days for review and resolution of issues.
+- おかしいな? と思ったら、英語版オリジナルをご確認いただき、オリジナルでも発生するのか日本語訳だけの問題かを切り分けてください。
+- 英語オリジナルについては、下記手順で英語リポジトリに対して改善要求をお送りください。
+- まず、ラボに記載されているすべての指示 (「ハンズオン ラボの前に」のドキュメントを含む) に従っていることを確認します。
+- 次に、問題を、その詳細な説明と共に送信します。
+- pull 要求を送信しないでください。コンテンツ作成者がすべての変更を行い、pull 要求を送信して承認を求めます。
+
+ワークショップ開催を計画している場合、早めに資料をレビューおよびテストしてください。少なくとも 2 週間前には実施することをお勧めします。
+
+### レビューと問題の解決には 5 ～ 10 営業日かかります。

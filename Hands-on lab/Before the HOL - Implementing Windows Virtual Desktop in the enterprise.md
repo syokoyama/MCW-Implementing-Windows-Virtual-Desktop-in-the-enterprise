@@ -1,132 +1,125 @@
-
-![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
+![マイクロソフト クラウド ワークショップ](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "マイクロソフト クラウド ワークショップ")
 
 <div class="MCWHeader1">
-Implementing Windows Virtual Desktop in the enterprise
+エンタープライズでの Windows Virtual Desktop の実装
 </div>
-
 <div class="MCWHeader2">
-Before the hands-on lab setup guide
+「ハンズオン ラボの前に」設定ガイド
 </div>
-
 <div class="MCWHeader3">
-September 2020
+2020 年 9 月
 </div>
+このドキュメントに記載されている情報 (URL 等のインターネット Web サイトに関する情報を含む) は、将来予告なしに変更されることがあります。特に断りがない限り、ここで使用している会社、組織、製品、ドメイン名、電子メール アドレス、ロゴ、人物、場所、イベントの例は、架空のものであり、実在する会社、組織、製品、ドメイン名、電子メール アドレス、ロゴ、人物、場所、イベントなどとは一切関係ありません。お客様ご自身の責任において、適用されるすべての著作権関連法規に従ったご使用を願います。このドキュメントのいかなる部分も、米国 Microsoft Corporation の書面による許諾を受けることなく、その目的を問わず、どのような形態であっても、複製または譲渡することは禁じられています。ここでいう形態とは、複写や記録など、電子的な、または物理的なすべての手段を含みます。ただしこれは、著作権法上のお客様の権利を制限するものではありません。
 
-Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
+マイクロソフトは、このドキュメントに記載されている内容に関し、特許、特許申請、商標、著作権、またはその他の無体財産権を有する場合があります。別途マイクロソフトのライセンス契約上に明示の規定のない限り、このドキュメントはこれらの特許、商標、著作権、またはその他の無体財産権に関する権利をお客様に許諾するものではありません。
 
-Microsoft may have patents, patent applications, trademarks, copyrights, or other intellectual property rights covering subject matter in this document. Except as expressly provided in any written license agreement from Microsoft, the furnishing of this document does not give you any license to these patents, trademarks, copyrights, or other intellectual property.
+製造元や製品の名前、URL は情報の提供のみを目的としており、マイクロソフトは、これらの製造元、またはマイクロソフトの技術での製品の使用について、明示的、黙示的、または法的にいかなる表示または保証も行いません。製造元または製品の使用は、マイクロソフトによるその製造元または製品の推奨を意味するものではありません。サード パーティのサイトへのリンクが提供されている場合があります。このようなサイトはマイクロソフトの管理下にはなく、マイクロソフトは、リンクされたサイトの内容またはリンクされたサイトに含まれるリンク、あるいはこのようなサイトの変更または更新について責任を負いません。マイクロソフトは、リンクされたサイトから受信された Web キャストまたは他のいかなる形態の転送にも責任を負いません。マイクロソフトは、これらのリンクを便宜のみを目的として提供しており、いかなるリンクの使用も、マイクロソフトによるサイトまたはそこに含まれる製品の推奨を意味するものではありません。
 
-The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
+© 2020 Microsoft Corporation.All rights reserved.
 
-© 2020 Microsoft Corporation. All rights reserved.
+Microsoft および <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> に記載されている商標は、Microsoft グループの商標です。その他すべての商標は、該当する各社が所有しています。
 
-Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
-
-**Contents**
+**目次**
 
 <!-- TOC -->
 
-- [Implementing Windows Virtual Desktop in the enterprise before the hands-on lab setup guide](#implementing-windows-virtual-desktop-in-the-enterprise-before-the-hands-on-lab-setup-guide)
-    - [Requirements](#requirements)
-    - [Before the hands-on lab](#before-the-hands-on-lab)
-        - [Task 1: Deploying Azure Infrastructure and AD DS](#task-1-deploying-azure-infrastructure-and-ad-ds)
-        - [Task 2: Deploying the ARM template](#task-2-deploying-the-arm-template)
+- [エンタープライズでの Windows Virtual Desktop の実装のための「ハンズオン ラボの前に」設定ガイド](#エンタープライズでの-windows-virtual-desktop-の実装のためのハンズオン-ラボの前に設定ガイド)
+    - [必要条件](#必要条件)
+    - [ハンズオン ラボの前に](#ハンズオン-ラボの前に)
+        - [タスク 1: Azure インフラストラチャと AD DS をデプロイする](#タスク-1-azure-インフラストラチャと-ad-ds-をデプロイする)
+        - [タスク 2: ARM テンプレートをデプロイする](#タスク-2-arm-テンプレートをデプロイする)
 
 <!-- /TOC -->
+# エンタープライズでの Windows Virtual Desktop の実装のための「ハンズオン ラボの前に」設定ガイド
 
-# Implementing Windows Virtual Desktop in the enterprise before the hands-on lab setup guide
+## 必要条件
 
-## Requirements
+Windows Virtual Desktop ワークスペースの設定を開始する前に、次の項目が用意されていることを確認します。
 
-Before you start setting up your Windows Virtual Desktop workspace, make sure you have the following items:
+- Windows Virtual Desktop ユーザー用の Azure Active Directory のテナント ID。
 
--   The Azure Active Directory tenant ID for Windows Virtual Desktop users.
+- Azure Active Directory テナント内の全体管理者アカウント。
+  
+  - これは、顧客のために Windows Virtual Desktop ワークスペースを作成するクラウド ソリューション プロバイダー (CSP) の組織にも適用されます。もしお客様が CSP 組織に属している場合は、顧客の Azure Active Directory テナントの全体管理者としてサインインできる必要があります。
+  
+  - 管理者アカウントは、Windows Virtual Desktop ワークプレースの作成先の Azure Active Directory テナントから供給する必要があります。このプロセスでは、Azure Active Directory B2B (ゲスト) アカウントはサポートされません。
+  
+  - 管理者アカウントは、職場または学校アカウントである必要があります。
 
--   A global administrator account within the Azure Active Directory tenant.
+- Azure サブスクリプション。
+  
+  - 4 台の 4 コア サーバーを構築するのに十分な数のクォータ コア。
+  
+  - 新規または既存の Azure Active Directory テナントのための Azure Active Directory 全体管理者アカウントへのアクセス許可。
+  
+  - すべての Azure サブスクリプションに対する所有者の権限。
 
-    -   This also applies to Cloud Solution Provider (CSP) organizations that are creating a Windows Virtual Desktop workspace for their customers. If you are in a CSP organization, you must be able to sign in as global administrator of the customer\'s Azure Active Directory tenant.
+## ハンズオン ラボの前に
 
-    -   The administrator account must be sourced from the Azure Active Directory tenant in which you are trying to create the Windows Virtual Desktop workspace. This process does not support Azure Active Directory B2B (guest) accounts.
+所要時間: 45 分
 
-    -   The administrator account must be a work or school account.
+### タスク 1: Azure インフラストラチャと AD DS をデプロイする
 
--   An Azure subscription.
+このタスクでは、カスタムの Azure Resource Manager (ARM) テンプレートを活用して、WVD に必要な Active Directory ドメイン サービスのインフラストラクチャをデプロイします。既に AD DS 環境と AD Connect を構成している場合は、**段階的ハンズオン ラボ、「演習 4: AD DS で Azure AD Connect を構成する」に進むことができます。**
 
-    -   Enough Quota Cores to build four 4-core servers.
+1. ARM テンプレートへのリンク: [GitHub からの AAD ハイブリッド ラボの ARM テンプレート](https://github.com/PeterR-msft/M365WVDWS/tree/master/AAD-Hybrid-Lab)
 
-    -   Access to the Azure Active Directory Global Admin account for your new or existing Azure Active Directory Tenant.
+この ARM テンプレートによって、次のリソースがプロビジョニングされます。
 
-    -   Owner rights on all Azure subscription(s).
-
-## Before the hands-on lab
-
-Duration:  45 minutes
-
-### Task 1: Deploying Azure Infrastructure and AD DS
-
-In this task you will leverage a custom Azure Resource Manager (ARM) template to deploy the required Active Directory Domain Services infrastructure for WVD. If you already have an AD DS environment and AD Connect configured, you can move on to **HOL step-by-step, Exercise 4: Configuring Azure AD Connect with AD DS**.
-
-1. Link to the ARM template: [AAD hybrid lab ARM template from GitHub](https://github.com/PeterR-msft/M365WVDWS/tree/master/AAD-Hybrid-Lab).
-
-This ARM Template will provision the following resources:
-
--   Virtual Network
-
-    -   1 Subnet
-
-    -   1 Network Security Group (NSG)
-
-        -   Permits AD traffic, permits RDP incoming traffic, restricts DMZ access.
-
-    -   DNS configured to point to the domain controller.
-
--   Virtual Machine
-
-    -   Active Directory Domain Services is installed and configured.
-
-    -   Test users created in the domain.
-
-    -   Azure AD Connect is installed and ready for configuration.
-
-    -   Public IP address assigned for remote administration via RDP.
-
-
-### Task 2: Deploying the ARM template
-
->**Tip**: Internally at MSFT we have different tenant directories available. Because of this, it is not uncommon for ARM templates hosted on GitHub to get stuck during
-deployment. To avoid confusion and deployment errors, **open an InPrivate browser window** when deploying ARM templates from GitHub.
-
-1.  Open a browser using "InPrivate" or "Incognito" mode, and navigate to the ARM template: [AAD hybrid lab ARM template from GitHub](https://github.com/PeterR-msft/M365WVDWS/tree/master/AAD-Hybrid-Lab).
-
-2.  Review the notes on the GitHub page for the ARM template prior to deployment.
-
-3.  Under Quick Start, click **Deploy to Azure**. This will open a new browser tab to the Azure Portal for custom deployments.
+- 仮想ネットワーク
+  
+  - 1 サブネット
+  
+  - 1 ネットワーク セキュリティ グループ (NSG)
     
-    ![Screenshop of the Deploy to Azure button within Github.](images/1.png "Deploy to Azure button")
+    - AD トラフィックを許可、RDP 受信トラフィックを許可、DMZ アクセスを制限。
+  
+  - ドメイン コントローラーを指すよう構成された DNS
 
-4.  If prompted, make sure to sign in with an account that is an owner for the Azure subscription.
+- 仮想マシン
+  
+  - Active Directory ドメイン サービスのインストールと設定
+  
+  - テスト ユーザーをドメインに作成
+  
+  - Azure AD Connect をインストールし、構成前の状態
+  
+  - RDP を介してリモート管理できるパブリック IP アドレスの割り当て
 
-5.  Fill in the required ARM template parameters. Refer to the following example for more information on the parameters:
+### タスク 2: ARM テンプレートをデプロイする
 
-    - Create a new **Resource group**
-    - Select a **Region**
-    - Create an **Admin password**
-    - Create an **AD Domain name**, such as **(mycompany).local**
-    - Create a **Customupnsuffix** for WVD, such as **"mywvd"**
-    - Create a **Default user password**
-    - Select **Review + create**
+> **ヒント**: マイクロソフト社内では、異なるテナント ディレクトリが利用可能です。このため、GitHub 上でホストされた ARM テンプレートのデプロイメントの途中でスタックすることは珍しくありません。混乱とデプロイ エラーを回避するために、GitHub から ARM テンプレートをデプロイする場合は、**InPrivate ブラウザー ウィンドウを開いて**ください。
 
-    >**Note**: Make sure that you save these inputs, they will be needed for reference when you go through the HOL Step-by-Step.
-        
-    ![This image shows the values to enter into the custom template for the setup of the WVD domain controller.](images/wvdcustomdeployment.png "Windows Virtual Desktop custom deployment template")
+1. "InPrivate" または "Incognito" モードを使用してブラウザーを開くと、次の ARM テンプレートにナビゲートされます。[GitHub からの AAD ハイブリッド ラボの ARM テンプレート](https://github.com/PeterR-msft/M365WVDWS/tree/master/AAD-Hybrid-Lab)
 
-6.  Agree to the Terms and conditions and click **Purchase**.
+2. デプロイメントの前に、ARM テンプレートを使用するための GitHub ページ上の記載を確認してください。
 
-    The deployment is now underway. On average this process can take 30 minutes to complete. It is important that you monitor the deployment progress to ensure there are no problems. You can monitor progress by clicking the **notification** bell in the upper right corner and clicking **Deployment in progress...**.
+3. \[クイック スタート\] ページで、\[Deploy to Azure\] をクリックします。これにより、カスタム デプロイのための Azure Portal の新しいブラウザー タブが開きます。 
+   
+   ![GitHub 内の \[Deploy to Azure\] ボタンのスクリーンショット](images/1.png "[Deploy to Azure] ボタン")
 
-    >**Note**: While automation can make things simpler and repeatable, sometimes it can fail. If at any time during the ARM template deployment there is a failure, review the failure, delete the Resource Group and try the ARM template again, adjusting for any possible errors.
+4. プロンプトが表示される場合は、Azure サブスクリプションの所有者であるアカウントでサインインするようにしてください。
 
-    Once the ARM template is done being deployed, the status will change to complete. At this point the domain controller is ready for RDP connectivity.
+5. 必要な ARM テンプレート パラメーターを入力します。パラメーターの詳細については、以下の例を参照してください。
+   
+   - 新しい**リソース グループ**を作成する
+   - **リージョン**を選択する
+   - **管理者パスワード**を作成する
+   - **(Mycompany).local** などの **AD ドメイン名**を作成する
+   - **"mywvd"** などの WVD の **Customupnsuffix** を作成する
+   - **既定のユーザー パスワード**を作成する
+   - \[Review + create\] を選択する
+   
+   > 注: これらの入力内容は、ステップバイステップ ハンズオン ラボを実施する際に参照する必要があるため、必ず保存するようにしてください。
+   
+   ![この画像は、WVD ドメイン コントローラーのセットアップのためのカスタム テンプレートに入力する値を示しています。](images/wvdcustomdeployment.png "Windows Virtual Desktop カスタム デプロイ テンプレート")
 
-You should follow all steps provided *before* performing the Hands-on lab.
+6. 使用条件に同意して、\[作成\] をクリックします。
+   
+   デプロイメントが進行中です。このプロセスが完了するまでに平均 30 分かかります。デプロイの進行状況を監視して、問題がないことを必ず確認してください。右上隅にある**通知**ベルをクリックして、\[Deployment in progress...\] をクリックすると、進行状況を監視できます。
+   
+   > 注: 自動化によって、作業をシンプルにして再現性も高くすることができますが、失敗する場合もあります。ARM テンプレートのデプロイ中に障害が発生した場合は、障害を確認し、リソース グループを削除して、ARM テンプレートを再試行してください。エラーが発生する場合は調整を行います。
+   
+   ARM テンプレートがデプロイされたら、ステータスが完了に変わります。この時点で、ドメイン コントローラーで RDP 接続の準備が整っています。
+
+このハンズオン ラボを実行する "前に"、指定されているすべてのステップに従う必要があります。

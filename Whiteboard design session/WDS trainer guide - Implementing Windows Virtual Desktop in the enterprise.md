@@ -1,623 +1,620 @@
-![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
+![マイクロソフト クラウド ワークショップ](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "マイクロソフト クラウド ワークショップ")
 
 <div class="MCWHeader1">
-Implementing Windows Virtual Desktop in the enterprise
+エンタープライズでの Windows Virtual Desktop の実装
 </div>
-
 <div class="MCWHeader2">
-Whiteboard design session trainer guide
+ホワイトボード設計セッション受講者ガイド
 </div>
-
 <div class="MCWHeader3">
-September 2020
+2020 年 9 月
 </div>
+このドキュメントに記載されている情報 (URL 等のインターネット Web サイトに関する情報を含む) は、将来予告なしに変更されることがあります。特に断りがない限り、ここで使用している会社、組織、製品、ドメイン名、電子メール アドレス、ロゴ、人物、場所、イベントの例は、架空のものであり、実在する会社、組織、製品、ドメイン名、電子メール アドレス、ロゴ、人物、場所、イベントなどとは一切関係ありません。お客様ご自身の責任において、適用されるすべての著作権関連法規に従ったご使用を願います。このドキュメントのいかなる部分も、米国 Microsoft Corporation の書面による許諾を受けることなく、その目的を問わず、どのような形態であっても、複製または譲渡することは禁じられています。ここでいう形態とは、複写や記録など、電子的な、または物理的なすべての手段を含みます。ただしこれは、著作権法上のお客様の権利を制限するものではありません。
 
-Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
+マイクロソフトは、このドキュメントに記載されている内容に関し、特許、特許申請、商標、著作権、またはその他の無体財産権を有する場合があります。別途マイクロソフトのライセンス契約上に明示の規定のない限り、このドキュメントはこれらの特許、商標、著作権、またはその他の無体財産権に関する権利をお客様に許諾するものではありません。
 
-Microsoft may have patents, patent applications, trademarks, copyrights, or other intellectual property rights covering subject matter in this document. Except as expressly provided in any written license agreement from Microsoft, the furnishing of this document does not give you any license to these patents, trademarks, copyrights, or other intellectual property.
+製造元や製品の名前、URL は情報の提供のみを目的としており、マイクロソフトは、これらの製造元、またはマイクロソフトの技術での製品の使用について、明示的、黙示的、または法的にいかなる表示または保証も行いません。製造元または製品の使用は、マイクロソフトによるその製造元または製品の推奨を意味するものではありません。サード パーティのサイトへのリンクが提供されている場合があります。このようなサイトはマイクロソフトの管理下にはなく、マイクロソフトは、リンクされたサイトの内容またはリンクされたサイトに含まれるリンク、あるいはこのようなサイトの変更または更新について責任を負いません。マイクロソフトは、リンクされたサイトから受信された Web キャストまたは他のいかなる形態の転送にも責任を負いません。マイクロソフトは、これらのリンクを便宜のみを目的として提供しており、いかなるリンクの使用も、マイクロソフトによるサイトまたはそこに含まれる製品の推奨を意味するものではありません。
 
-The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
+© 2020 Microsoft Corporation.All rights reserved.
 
-© 2020 Microsoft Corporation. All rights reserved.
+Microsoft および  https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx に記載されている商標は、Microsoft グループの商標です。その他すべての商標は、該当する各社が所有しています。
 
-Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
-
-**Contents**
+**目次**
 
 <!-- TOC -->
 
-- [Trainer information](#trainer-information)
-  - [Role of the trainer](#role-of-the-trainer)
-  - [Whiteboard design session flow](#whiteboard-design-session-flow)
-  - [Before the whiteboard design session: How to prepare](#before-the-whiteboard-design-session-how-to-prepare)
-  - [During the whiteboard design session: Tips for an effective whiteboard design session](#during-the-whiteboard-design-session-tips-for-an-effective-whiteboard-design-session)
-- [Implementing Windows Virtual Desktop in the enterprise whiteboard design session student guide](#implementing-windows-virtual-desktop-in-the-enterprise-whiteboard-design-session-student-guide)
-  - [Abstract and learning objectives](#abstract-and-learning-objectives)
-  - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
-    - [Customer situation](#customer-situation)
-    - [Customer needs](#customer-needs)
-    - [Customer objections](#customer-objections)
-    - [Infographic for common scenarios](#infographic-for-common-scenarios)
-  - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
-  - [Step 3: Present the solution](#step-3-present-the-solution)
-  - [Wrap-up](#wrap-up)
-  - [Additional references](#additional-references)
-- [Implementing Windows Virtual Desktop in the enterprise whiteboard design session trainer guide](#implementing-windows-virtual-desktop-in-the-enterprise-whiteboard-design-session-trainer-guide)
-  - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study-1)
-  - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution-1)
-  - [Step 3: Present the solution](#step-3-present-the-solution-1)
-  - [Wrap-up](#wrap-up-1)
-  - [Preferred target audience](#preferred-target-audience)
-  - [Preferred solution](#preferred-solution)
-  - [Checklist of preferred objection handling](#checklist-of-preferred-objection-handling)
-  - [Customer quote (to be read back to the attendees at the end)](#customer-quote-to-be-read-back-to-the-attendees-at-the-end)
+- [トレーナーの情報](#トレーナーの情報)
+    - [トレーナーの役割](#トレーナーの役割)
+    - [ホワイトボード設計セッションの手順](#ホワイトボード設計セッションの手順)
+    - [ホワイトボード設計セッション前: 準備方法](#ホワイトボード設計セッション前-準備方法)
+    - [ホワイトボード設計セッション中: 効果的なホワイトボード設計セッションのヒント](#ホワイトボード設計セッション中-効果的なホワイトボード設計セッションのヒント)
+- [エンタープライズでの Windows Virtual Desktop の実装のためのホワイトボード設計セッション受講者ガイド](#エンタープライズでの-windows-virtual-desktop-の実装のためのホワイトボード設計セッション受講者ガイド)
+    - [要約と学習目的](#要約と学習目的)
+    - [ステップ 1: 顧客のケース スタディの確認](#ステップ-1-顧客のケース-スタディの確認)
+        - [顧客の状況](#顧客の状況)
+        - [顧客のニーズ](#顧客のニーズ)
+        - [顧客の反論](#顧客の反論)
+        - [一般的なシナリオのインフォグラフィック](#一般的なシナリオのインフォグラフィック)
+        - [セキュリティ シナリオ](#セキュリティ-シナリオ)
+        - [ネットワーク シナリオ](#ネットワーク-シナリオ)
+        - [Windows Virtual Desktop の標準アーキテクチャ](#windows-virtual-desktop-の標準アーキテクチャ)
+    - [ステップ 2: 概念実証ソリューションの設計](#ステップ-2-概念実証ソリューションの設計)
+    - [ステップ 3: ソリューションをプレゼンテーションする](#ステップ-3-ソリューションをプレゼンテーションする)
+    - [まとめ](#まとめ)
+    - [追加リファレンス](#追加リファレンス)
+- [エンタープライズでの Windows Virtual Desktop の実装のためのホワイトボード設計セッション トレーナー ガイド](#エンタープライズでの-windows-virtual-desktop-の実装のためのホワイトボード設計セッション-トレーナー-ガイド)
+    - [ステップ 1: 顧客のケース スタディの確認](#ステップ-1-顧客のケース-スタディの確認-1)
+    - [ステップ 2: 概念実証ソリューションの設計](#ステップ-2-概念実証ソリューションの設計-1)
+    - [ステップ 3: ソリューションをプレゼンテーションする](#ステップ-3-ソリューションをプレゼンテーションする-1)
+    - [まとめ](#まとめ-1)
+    - [推奨される対象者](#推奨される対象者)
+    - [推奨ソリューション](#推奨ソリューション)
+    - [反論への推奨される対応のチェックリスト](#反論への推奨される対応のチェックリスト)
+    - [顧客の声 (最後に出席者に対して読み上げる)](#顧客の声-最後に出席者に対して読み上げる)
 
 <!-- /TOC -->
+# トレーナーの情報
 
-# Trainer information
+トレーナーとしてホワイトボード設計セッションをサポートするためにお時間を割いていただき誠にありがとうございます。
 
-Thank you for taking time to support the whiteboard design sessions as a trainer!
+## トレーナーの役割
 
-## Role of the trainer
+優れたトレーナーとは
 
-An amazing trainer:
+- 安全に学習できる環境を構築します。
 
-- Creates a safe environment in which learning can take place.
+- 参加者の思考を刺激します。
 
-- Stimulates the participant's thinking.
+- 参加者を学習プロセスに関与させます。
 
-- Involves the participant in the learning process.
+- 学習プロセスを管理します (時間どおりに、トピックに従って、参加者がメリットを得られるように調整します)。
 
-- Manages the learning process (on time, on topic, and adjusting to benefit participants).
+- 個々の参加者の責任を徹底します。
 
-- Ensures individual participant accountability.
+- 参加者のためにすべてをまとめます。
 
-- Ties it all together for the participant.
+- 学習プロセスへの洞察と経験を提供します。
 
-- Provides insight and experience to the learning process.
+- ホワイトボード設計セッションの議論を効果的に主導します。
 
-- Effectively leads the whiteboard design session discussion.
+- 参加者の成果物の品質と妥当性を監視します。
 
-- Monitors quality and appropriateness of participant deliverables.
+- フィードバック プロセスを効果的に主導します。
 
-- Effectively leads the feedback process.
+## ホワイトボード設計セッションの手順
 
-## Whiteboard design session flow
+各ホワイトボード設計セッションは、次の手順で行います。
 
-Each whiteboard design session uses the following flow:
+**ステップ 1: 顧客のケース スタディの確認 (15 分)**
 
-**Step 1: Review the customer case study (15 minutes)**
+**成果**
 
-**Outcome**
+顧客のニーズを分析する
 
-Analyze your customer's needs.
+- 顧客の背景、状況、ニーズ、および技術的な要件
 
-- Customer's background, situation, needs and technical requirements
+- 顧客の現在のインフラストラクチャとアーキテクチャ
 
-- Current customer infrastructure and architecture
+- 潜在的な問題、反論、および阻害要因
 
-- Potential issues, objectives and blockers
+**ステップ 2: 概念実証ソリューションの設計 (60 分)**
 
-**Step 2: Design a proof of concept solution (60 minutes)**
+**成果**
 
-**Outcome**
+ソリューションを設計し、そのソリューションを 15 分のチョークトーク形式で顧客の対象者にプレゼンテーションする準備をする
 
-Design a solution and prepare to present the solution to the target customer audience in a 15-minute chalk-talk format.
+- 顧客の対象者を決定する
 
-- Determine your target customer audience.
+- 顧客のビジネス ニーズを判断してソリューションに取り組む
 
-- Determine customer's business needs to address your solution.
+- ソリューションを設計して図で表す
 
-- Design and diagram your solution.
+- ソリューションのプレゼンテーションを準備する
 
-- Prepare to present your solution.
+**ステップ 3: ソリューションのプレゼンテーション (30 分)**
 
-**Step 3: Present the solution (30 minutes)**
+**成果**
 
-**Outcome**
+ソリューションを顧客にプレゼンテーションする
 
-Present solution to your customer:
+- ソリューションをプレゼンテーションする
 
-- Present solution
+- 顧客の反論に回答する
 
-- Respond to customer objections
+- フィードバックを受ける
 
-- Receive feedback
+**まとめ (15 分)**
 
-**Wrap-up (15 minutes)**
+- 推奨ソリューションを確認する
 
-- Review preferred solution
+## ホワイトボード設計セッション前: 準備方法
 
-## Before the whiteboard design session: How to prepare
+最初のホワイトボード設計セッションを実施する前に、以下を行います。
 
-Before conducting your first whiteboard design session:
+- 受講者ガイド (ケース スタディを含む) およびトレーナー ガイドを読む
 
-- Read the Student guide (including the case study) and Trainer guide.
+- すべてのキー ポイントとアクティビティを十分に理解する
 
-- Become familiar with all key points and activities.
+- 強調したいポイント、どの質問を活発化させたいか、および進め方を計画し、質問に回答する準備をする
 
-- Plan the point you want to stress, which questions you want to drive, transitions, and be ready to answer questions.
+- ホワイトボード設計セッションの前に、ケース スタディについて議論してさらにアイデアを集める
 
-- Prior to the whiteboard design session, discuss the case study to pick up more ideas.
+- 後で参照するためにメモを取る
 
-- Make notes for later.
+## ホワイトボード設計セッション中: 効果的なホワイトボード設計セッションのヒント
 
-## During the whiteboard design session: Tips for an effective whiteboard design session
+**トレーナー ガイドを参照して**、セッションを円滑に進め、時間を守る。
 
-**Refer to the Trainer guide** to stay on track and observe the timings.
+ホワイトボード設計セッションの**詳細をすべて覚えようとしない**。
 
-**Do not expect to memorize every detail** of the whiteboard design session.
+参加者がアクティビティを実施しているときに、**次に何を行うかを考えて、覚えていることを確認する**。
 
-When participants are doing activities, you can **look ahead to refresh your memory**.
+- 必要に応じて、**アクティビティとホワイトボード設計セッションのペースを調整して**、プレゼンテーション、フィードバック、および共有の時間を設ける。
 
-- **Adjust activity and whiteboard design session pace** as needed to allow time for presenting, feedback, and sharing.
+- 自身の経験から、**例、ポイント、および事例を追加する**。共有できる事例の中から、ポイントを明確かつ効果的に伝えるのに役立つものがないか考えます。
 
-- **Add examples, points, and stories** from your own experience. Think about stories you can share that help you make your points clearly and effectively.
+- ホワイトボード設計セッションのスコープ外で発生した問題や疑問、または後で回答できる問題や疑問を記録する **"パーキング ロット" を設けることを検討する**。これらの問題をどのように解決するかを判断し、脱線することなく問題を確認できるようにします。
 
-- **Consider creating a "parking lot"** to record issues or questions raised that are outside the scope of the whiteboard design session or can be answered later. Decide how you will address these issues, so you can acknowledge them without being derailed by them.
+**楽しむ**。楽しんで共有するよう参加者に促します。
 
-***Have fun**! Encourage participants to have fun and share!*
+**参加者を関与させる**。話をして自身の知識を共有しますが、自分が話している間も常に参加者を関与させます。
 
-**Involve your participants**. Talk and share your knowledge but always involve your participants, even while you are the one speaking.
+**質問をする**。グループを十分に学習プロセスに関与させるために、質問の内容を共有します。
 
-**Ask questions** and get them to share to fully involve your group in the learning process.
+可能な限り、**最初に質問から入る**。トピックを始める前に、そのトピックに関する対象者の意見と経験について学びます。最初に質問から入ることにより、対象者の知識と経験のレベルを評価し、対象者がプレゼンテーションの内容に対してオープンな姿勢を保つことができます。
 
-**Ask first**, whenever possible. Before launching into a topic, learn your audience's opinions about it and experiences with it. Asking first enables you to assess their level of knowledge and experience and leaves them more open to what you are presenting.
+**反応を待つ**。"(空欄に記入) についてどのような経験がありますか" のような質問をして、反応を待ちます。多少の沈黙は気にしないでください。こちらから沈黙を破ると、参加者を真剣には関与させようとしていないのではないかという印象を与え、参加者は受け身になってしまいます。参加者に考えるチャンスを与え、誰も答えない場合は、辛抱強くもう一度質問します。通常は反応があります。
 
-**Wait for responses**. If you ask a question such as, "What's your experience with (fill in the blank)?" then wait. Do not be afraid of a little silence. If you leap into the silence, your participants will feel you are not serious about involving them and will become passive. Give participants a chance to think, and if no one answers, patiently ask again. You will usually get a response.
+# エンタープライズでの Windows Virtual Desktop の実装のためのホワイトボード設計セッション受講者ガイド
 
-# Implementing Windows Virtual Desktop in the enterprise whiteboard design session student guide
+## 要約と学習目的
 
-## Abstract and learning objectives
+ホワイトボード設計セッションでは、グループで作業して、Microsoft 365 および Azure テクノロジを使用して Windows Virtual Desktop ソリューションを設計します。ソリューションでは、Windows 10 Enterprise のマルチユーザー ライセンスに必要な Microsoft 365 サブスクリプションと、Azure Active Directory および医療提供者のためのセキュリティ ニーズについても考慮する必要があります。Azure を現在の VMware および Citrix のオンプレミス インフラストラクチャに接続する方法と、アプリケーションにアクセスするためにこのインフラストラクチャを Azure に接続する方法も決定することが必要です。最後に、Azure 仮想マシンを活用して、パフォーマンス低下を招くことなく 24 時間 365 日の業務に対応できる可用性とスケーラビリティを備えた Windows Virtual Desktop ソリューションを設計する必要があります。
 
-In the whiteboard design session you will work in groups to design a Windows Virtual Desktop solution using Microsoft 365 and Azure technologies. Your solution will consider the necessary Microsoft 365 subscription required for Windows 10 Enterprise multi-user licensing, as well as the Azure Active Directory and security needs for a healthcare provider. You will need to determine how to connect Azure to the current VMware and Citrix on-premises infrastructure and the connections needed to connect this infrastructure to Azure for application access. Finally, you will need to design the Windows Virtual Desktop solution utilizing Azure virtual machines with availability and scalability to handle 24x7 operations without performance degradation.
+このホワイトボード設計セッションを完了すると、Microsoft 365 および Azure テクノロジを共に活用して、安全で堅牢な Windows Virtual Desktop インフラストラクチャを構築するためのソリューションをより効果的に設計できるようになります。
 
-At the end of the whiteboard design session, you will be better able to design a solution that leverages Microsoft 365 and Azure technologies together to build a secure and robust Windows Virtual Desktop infrastructure.
+## ステップ 1: 顧客のケース スタディの確認
 
-## Step 1: Review the customer case study
+**成果**
 
-**Outcome**
+顧客のニーズを分析する
 
-Analyze your customer's needs.
+所要時間: 15 分
 
-Timeframe: 15 minutes
+指示: セッションの参加者全員と共に、ファシリテーター/SME は、顧客のケース スタディの概要を技術的なヒントと併せてプレゼンテーションします。
 
-Directions: With all participants in the session, the facilitator/SME presents an overview of the customer case study along with technical tips.
+1. テーブルの参加者およびトレーナーと打ち合わせを行います。
 
-1. Meet your table participants and trainer.
+2. 受講者ガイドのステップ 1 ～ 3 の指示をすべて読みます。
 
-2. Read all of the directions for steps 1-3 in the student guide.
+3. テーブル チームとして、次の顧客のケース スタディを確認します。
 
-3. As a table team, review the following customer case study.
+### 顧客の状況
 
-### Customer situation
+カリフォルニア州ロサンゼルスに本拠を置く Contoso Healthcare は、北米全土に連携病院とクリニックのネットワークを有する国立医療機関です。このネットワークは買収を通じて成長し続けています。同機関のビジネスの性質として、従業員の PII (個人の特定が可能な情報) の高度なセキュリティを必要としています。
 
-Contoso Healthcare, headquartered in Los Angeles, California, is a national healthcare provider with a network of affiliate hospitals and doctor’s offices located throughout North America. These locations continue to grow through acquisition.  The nature of their business requires a high level of security of Personal Identifiable Information (PII) for their employees.
+Contoso の環境内には現在約 250 台のワークステーションがあり、開発者、および財務部門や知財部門の非臨床ユーザーのためのビジネス アプリケーションがインストールされています。Contoso は現在カリフォルニア州およびバージニア州北部で既存のデータ センターをサポートしており、サーバーの制御プレーンに VMware を使用し、Citrix 仮想デスクトップ インフラストラクチャを部分的にデプロイしています。これらの拠点はプライベート WAN 接続とブロードバンドを経由したバックアップ VPN によって接続されています。
 
-Contoso currently has approximately 250 workstations within their environment with business applications for non-clinical users from developer, finance, and knowledge departments. Contoso is currently supporting existing data centers in California and Northern Virginia with VMware for the server control plane and a partial deployment of Citrix virtual desktop infrastructure. These locations are connected with a private WAN connection and a backup VPN over broadband.  
+Contoso Healthcare の CTO である Ken Greenwald 氏は、パブリック クラウドの価値を評価しており、Microsoft Azure を、組織にとってのリソースの可用性を維持すると共に、スケーラビリティを向上させるための優れたオプションと見なしています。彼のチームは、組織全体に広がる 250 台のワークステーションを管理することに苦戦しており、ユーザーがアプリケーションに安全にアクセスできるようにする、標準化されたデスクトップ イメージを容易に管理および維持できるようにするオプションを必要としています。これらのデスクトップ イメージはローカル マシン上で維持しないようにすることが理想的です。Greenwald 氏はこのように語ります。「Contoso Healthcare は北米中のクリニックおよび病院の買収を通じて成長し続けているため、それらの各拠点におけるハードウェアを標準化する能力の点で問題が生じています。経営幹部は新しい機器に対する設備投資を増やすことに乗り気ではないため、当社は IT 組織として現在の VMware と Citrix の仮想デスクトップ インフラストラクチャを最大限に活用して、アプリケーションをユーザーに配信することを余儀なくされています。当社のデータ センター内に既に導入しているものを利用して、Microsoft Azure テクノロジを統合する機能を必要としており、それによって組織全体で標準化を実現し、新しい病院の買収を迅速に統合する当社の能力を高めたいと考えています」
 
-Ken Greenwald, Contoso Healthcare CTO, has been evaluating the value of the public cloud and views Microsoft Azure as an excellent option to maintain availability and increase scalability of resources to the organization.  His team has also struggled with managing 250 workstations spread across the organization and needs an option to easily manage and maintain a standardized desktop image that gives users secure access to applications.  Ideally, these desktop images would not be maintained on local machines.  As Ken states, "Contoso Healthcare has continued to grow through the acquisition of doctor's offices and hospitals throughout North America, which has created an issue with our ability to standardize hardware at these locations.  The Board of Directors has been unwilling to increase capital expenditures for new equipment and we are forced as an IT organization to maximize our current VMware and Citrix virtual desktop infrastructure to deliver applications to users.  We need the ability to utilize what we have in place within our data centers and integrate Microsoft Azure technologies to facilitate our ability to standardize across the organization and quickly integrate a new office acquisition."
+Contoso Healthcare の CISO である Laura Knight 氏には、さらにいくつかの対処すべき目標があります。彼女は、病院の買収によって獲得した複数のデバイスによって、組織全体でデータ漏えいの脅威が生じることを懸念しています。これらのデバイスのモビリティが引き続き高まっているため、個人の医療データ (PHI) と個人を特定できる情報 (PII) が承認されていない人物に開示される懸念が生じています。また、彼女は ISO 27001、HIPAA、およびカリフォルニア州の個人情報保護法 (GDPR に類似) のコントロールなどのプライバシー標準を監査する責任も担っています。Knight 氏はこう語ります。「Contoso Healthcare の成長によって、セキュリティとコンプライアンスを担う私のチームに対する負担が高まっています。さまざまなオペレーティング システム上のシステムがオンラインになるため、それらを監視することはますます難しくなっています。これらのオペレーティング システムの中には、監査とアプリケーション アクセスのためのモバイル デバイス管理ソフトウェアをサポートしないものもあります。さらに、セキュリティ ポリシーと機密情報へのアクセスに一元化された標準を強制することは困難です。私のチームは、当社のデータとリソースのセキュリティを維持し、脅威またはデバイスへの不正アクセスによるデータ損失の可能性を軽減する能力を備えている必要があります」
 
-Contoso Healthcare's CISO, Laura Knight, has an additional list of objectives to address.  She is concerned with the threat of data exposure throughout the organization that is posed by the multiple devices that they have acquired through their office acquisitions.  The continued increase in mobility of these devices raises concerns of Personal Health Information (PHI) and Personally Identifiable Information (PII) being exposed to unauthorized individuals.  She also is responsible for the auditing of privacy standards, such as ISO 27001, HIPAA, and California Personal Protection Act (similar to GDPR) controls.  Laura has said, "The growth of Contoso Healthcare has created an increased burden on my security and compliance organization.  It has become more difficult to monitor systems as they come online with variations of operating systems.  Some of these operating systems do not support mobile device management software to audit use and application access.  In addition, enforcing a centralized standard for security policies and access to confidential information has been challenging.  My organization needs to be able to maintain the security of our data and resources, and mitigate the prospect of data loss due to threat or unauthorized access to devices." 
+Contoso Healthcare は、現在のインフラストラクチャおよびアプリケーションの初期のクラウド評価を完了し、以下の分野において Microsoft 365 と Azure テクノロジがサポートできると感じています。
 
-Contoso Healthcare has completed an initial cloud assessment of their current infrastructure and applications, and they have divided the following areas that they feel that Microsoft 365 and Azure technologies can support:
+**セキュリティ**: ヘルスケア ビジネスでは、ファイルおよび財務記録にアクセスするためにモバイル デバイスにますます依存するようになっており、それは盗難とデータ漏えいに対する懸念を生み出しています。Contoso では、仮想デスクトップ インフラストラクチャを使用することで、ローカル デバイスに PHI または PII が存在する可能性を排除したいと考えています。また、承認済みのアプリケーションを管理し、未承認のクラウド アプリケーションをブロックできるようにしたいとも考えています。セキュリティ コントロールは、ISO 27001、カリフォルニア州の個人情報保護法、および HIPAA 標準に合わせて監査、ログ記録、およびレビューされる必要があります。
 
-**Security**: The business of healthcare has become more reliant on mobile devices to access files and financial records, which has created a concern over theft and data exposure. Contoso would like to eliminate the possibility of any PHI or PII being located on a local device through use of a virtual desktop infrastructure. They would also like to be able to manage applications that are authorized, and block cloud applications that are not authorized.  Security controls will need to audited, logged, and reviewed to ISO 27001, California Personal Protection Act, and HIPAA standards.
+**可用性とスケーラビリティ**: 医療提供者として、Contoso はアプリケーションを 24 時間 365 日アクセス可能にする必要があるため、高可用性とスケーラビリティを念頭に置いてあらゆるインフラストラクチャを設計する必要があります。Contoso Healthcare は買収を通じて成長しているため、新しいユーザーの追加に対応してリソースを迅速にスケールアウトする能力が必要です。
 
-**Availability and Scalability**: Being a healthcare provider, Contoso has a requirement for applications to be accessible 24x7, so any infrastructure should be designed with high availability and scalability in mind. As Contoso Healthcare grows through acquisitions, they need to be able to scale out resources quickly for the addition of new users.
+**デプロイ高速化**: Contoso には、現在のデバイスをアップグレードするために必要な追加の設備投資の予算がありません。そのため、標準のデスクトップ イメージをユーザーに提供するために、現在利用可能なデバイスを活用する必要があります。Contoso は、現在の VMware および Citrix インフラストラクチャを、ユーザー デスクトップにアプリケーションを配信する制御プレーンとして利用します。
 
-**Deployment Acceleration**: Contoso does not have a budget for the additional capital expenses required to upgrade current devices.  Therefore, they will need to utilize the current devices that are available to deliver a standard desktop image to users.   Contoso will be utilizing their current VMware and Citrix infrastructure and control plane for application delivery to user desktops.
+### 顧客のニーズ
 
-### Customer needs
+1. Contoso Healthcare は、モバイル デバイスの場所を管理し、Contoso Health ネットワーク上にない時は患者の医療データへのアクセスを防止する機能を必要としています。
 
-1. Contoso Healthcare needs the ability to manage mobile device location and avoid access to patient health records when not on the Contoso Health network.
+2. Contoso Healthcare では、PHI および PII データが、ローカル デバイスではなく中央の暗号化されたストレージ アカウントに保存されることが必要です。
 
-2. Contoso Healthcare requires that any PHI and PII data is stored in a central encrypted storage account and not on local devices.
+3. Contoso Healthcare はアクティビティとアクセスをログ記録し、ISO 27001、カリフォルニア州個人保護法、および HIPAA コントロールに対するコンプライアンスを監査できなければなりません。
 
-3. Contoso Healthcare must be able to log activity and access, and be able to audit compliance to ISO 27001, California Personal Protection Act, and HIPAA controls.
+4. Contoso Healthcare には、24 時間 365 日のアプリケーションに対するアクセスと、需要の増加に伴ってリソースをスケーリングする能力が必要です。
 
-4. Contoso Healthcare requires 24x7 access to applications and the ability to scale resources as demand increases.
+5. Contoso Healthcare は、アプリケーションにアクセスする際の低待機時間を実現する、ネットワーク接続の冗長性を必要としています。
 
-5. Contoso Healthcare needs redundancy in network connections with low latency when accessing applications.
+6. Contoso Healthcare では、ローカル デバイスを更新および管理することなく、標準化されたデスクトップ イメージを作成し、すべてのユーザーに配信する能力が必要です。
 
-6. Contoso Healthcare requires the ability to create and deploy a standardized desktop image to all users without the need to update and manage local devices.
+7. Contoso Healthcare は、現在のカリフォルニア州およびバージニア州北部のデータ センターにおいて現行のアプリケーション インフラストラクチャを活用する必要があります。
 
-7. Contoso Healthcare needs to leverage the current application infrastructure in their current California and Northern Virginia datacenters.
+### 顧客の反論
 
-### Customer objections
+1. Contoso Healthcare の CTO は、標準化されたデスクトップ イメージをサポートするために新しいワークステーションとモバイル デバイスに投資することを望んでいません。OS なし、Mac、Android、シン クライアントのどれについてもです。これらのデバイスで新しいイメージをサポートできるでしょうか。
 
-1. The CTO at Contoso Healthcare does not want to invest in new workstations and mobile devices to support the standardized desktop image. This includes non-OS, Macs, Android, and thin clients.  Can these devices support the new image?
+2. Contoso Healthcare の CISO を、データが漏えいすることはないと説得する必要があります。マイクロソフトは Contoso Healthcare のデータ保護のニーズをどのようにサポートできるでしょうか。
 
-2. The CISO at Contoso Healthcare needs to be convinced that data will not be exposed. How would Microsoft support the data protection needs for Contoso Healthcare?
+3. Contoso Healthcare ではデスクトップ イメージ上のすべてのアクティビティをログ記録して監査できる必要があります。クラウドおよびオンプレミス環境上でこれにどのように対処できるでしょうか。
 
-3. Contoso Healthcare must be able to log and audit all activity on the desktop image.  How will this be handled within the cloud and on-premises environments?
+4. 要件を満たすためには、クラウドと既存のデータ センター間の接続はセキュアで信頼性が高いものである必要があります。どのようにこの点を解決し、監視できるでしょうか。
 
-4. Connections between the cloud and existing data centers must be secure and reliable to support their requirements.  How will this be addressed and monitored?
+5. Contoso Healthcare は、現在のデータ センターにかなりの設備投資を行ってきているため、それらを使用停止にすることは望んでいません。可能な限り既存のインフラストラクチャを活用したいと考えています。
 
-5. Contoso Healthcare has made a substantial capital investment in their current data centers that they do not want to decommission. So would like to leverage existing infrastructure where possible.
+### 一般的なシナリオのインフォグラフィック
 
-### Infographic for common scenarios
+### セキュリティ シナリオ
 
-### Security Scenarios
-The security scenario applies to the potential security, monitoring, and compliance auditing options needed to design the solution.
+セキュリティ シナリオは、ソリューションを設計するために必要となる、考えられるセキュリティ、監視、およびコンプライアンス監査のオプションに適用されます。
 
-![Common scenario of how Azure Monitor and Network Watcher can be used for both Azure and non-Azure VMs and network connections.  On the right, the on-premises servers are connected to Azure Monitor with an agent and Network Watcher is monitoring the connection between the on-premises datacenter and Azure.  In Azure, Azure Monitor is connected to the Windows Virtual Desktop host pool instances, and network watcher is monitoring the connect to these hosts and the VNET.  The metric and activity log information is then fed into Azure Monitor, Log Analytics, Azure Policy, and Azure Security Center for managing these resources for performance, activity, and compliance.](images/security.png "Security Scenario")
+![Azure Monitor および Network Watcher をどのように Azure と Azure 以外の両方の VM およびネットワーク接続に使用できるかを示す一般的なシナリオです。右の図において、オンプレミス サーバーはエージェントによって Azure Monitor に接続され、Network Watcher はオンプレミス データセンターと Azure 間の接続を監視します。Azure では、Azure Monitor は Windows Virtual Desktop ホスト プール インスタンスに接続され、Network Watcher はこれらのホストと VNET への接続を監視します。メトリックとアクティビティ ログの情報はその後 Azure Monitor、Log Analytics、Azure Policy、および Azure Security Center に入力されて、これらのリソースのパフォーマンス、アクティビティ、およびコンプライアンスが管理されます。](images/security.png "セキュリティ シナリオ")
 
+### ネットワーク シナリオ
 
-### Network Scenarios
-Network scenarios diagram the potential options for connecting from Microsoft Azure to the on-premises network.
+Microsoft Azure からオンプレミス ネットワークへの接続のための考えられるオプションを示すネットワーク シナリオの図です。
 
-![Diagram presenting the site-to-site connection configuration for the on-premises datacenter to connect to Azure through a VPN connection between the on-premises firewall and the Azure firewall.](images/network.png "Network Scenario")
+![オンプレミス ファイアウォールと Azure ファイアウォール間の VPN 接続を通して Azure に接続するためのオンプレミス データセンター向けのサイト間接続の構成を表す図です。](images/network.png "ネットワーク シナリオ")
 
+### Windows Virtual Desktop の標準アーキテクチャ
 
-### Windows Virtual Desktop standard architecture
-This diagram outlines a simple Windows Virtual Desktop architecture with Azure and Microsoft 365. This includes the Windows Virtual Desktop user connection and the Windows Virtual Desktop host pools.
+この図は、Azure および Microsoft 365 を使用する単純な Windows Virtual Desktop アーキテクチャの概要を示しています。これには、Windows Virtual Desktop ユーザー接続と Windows Virtual Desktop ホスト プールが含まれます。
 
-![Diagram referencing that there are multiple devices that will need to connect to the Windows desktop virtual image for Windows 10 and Microsoft 365 applications via the WVD hostpool.](images/wvdarchitecture.png "Windows Virtual Desktop standard architecture")
+![WVD ホストプールを介して Windows 10 および Microsoft 365 アプリケーションのために Windows デスクトップ仮想イメージに接続する必要のある複数のデバイスがあることを示す図です。](images/wvdarchitecture.png "Windows Virtual Desktop の標準アーキテクチャ")
 
+## ステップ 2: 概念実証ソリューションの設計
 
-## Step 2: Design a proof of concept solution
+**成果**
 
-**Outcome**
+ソリューションを設計し、そのソリューションを 15 分のチョークトーク形式で顧客の対象者にプレゼンテーションする準備をする
 
-Design a solution and prepare to present the solution to the target customer audience in a 15-minute chalk-talk format.
+所要時間: 60 分
 
-Timeframe: 60 minutes
+**ビジネス ニーズ**
 
-**Business needs**
+指示: テーブルのすべての参加者と共に以下の質問に回答し、回答をフリップ チャートに一覧にします。
 
-Directions:  With all participants at your table, answer the following questions and list the answers on a flip chart:
+1. このソリューションを誰にプレゼンテーションするべきか。顧客の対象者は誰か。意思決定者は誰か。
 
-1. Who should you present this solution to? Who is your target customer audience? Who are the decision makers?
+2. ソリューションで解決する必要がある顧客のビジネス ニーズは何か。
 
-2. What customer business needs do you need to address with your solution?
+**設計**
 
-**Design**
+指示: テーブルのすべての参加者と共に、フリップ チャートの次の質問に回答します。
 
-Directions: With all participants at your table, respond to the following questions on a flip chart:
+アーキテクチャの概要
 
-*High-level architecture*
+組織のニーズと要件に対応する Windows Virtual Desktop インフラストラクチャを設計します。実装の詳細を示してください。図を使用して設計を文書化し、質問に答えるようにしてください。以下の分野における要件に対応します。
 
-Design a Windows Virtual Desktop infrastructure that addresses the needs and requirements of the organization. Provide details of your implementation. Make sure to document your design with a diagram along with addressing the questions.  Address the requirements in the following areas:
+Microsoft 365
 
-*Microsoft 365*
+1. Windows 10 マルチユーザー ライセンスには、どの Microsoft 365 サブスクリプションが必要ですか。
 
-1. What Microsoft 365 subscription is required for Windows 10 multi-user licensing?
-   
-2. What subscription is required for Contoso's mobile device requirements?
+2. Contoso のモバイル デバイス要件にはどのサブスクリプションが必要ですか。
 
-3. What subscription is needed to classify and protect PHI and PII access?
+3. PHI および PII アクセスを分類および保護するには、どのサブスクリプションが必要ですか。
 
-4. What subscription is necessary to enforce device access on the local network only?
-   
-5. Why did you select the Microsoft 365 subscription(s)?
+4. ローカル ネットワークのみでデバイスのアクセスを適用するには、どのサブスクリプションが必要ですか。
 
-*Security*
+5. Microsoft 365 サブスクリプションを選択したのはなぜですか。
 
-1. What is required to audit, log, and monitor controls for ISO 27001 and HIPAA?
-   
-2. How will you address monitoring these controls in Azure and the on-premises data centers?
-   
-3. How will you avoid data exposure for data in-transit and data at-rest?
-   
-4. How will you maintain identity access management for the cloud and current Active Directory infrastructure, and how will they synchronize?
-   
-5. How will you address the secure and centralized file storage needs of the organization?
-   
-6. Describe the reasons for the specific security services selected.
+セキュリティ
 
-*Networking*
+1. ISO 27001 および HIPAA のためのコントロールを監査、ログ記録、および監視するために何が必要ですか。
 
-1. In what region or regions will you deploy resources and why?
-   
-2. How will you design the resource groups to support your design?
-   
-3. How will your virtual networks (VNETs) be configured for IP addresses and subnets?
-   
-4. How will you connect to Contoso Healthcare's data centers to minimize latency and maximize security?
-   
-5. What inbound ports, if any, need to be open to the session hosts for users to connect securely?
-   
-6. What will you use to identify and monitor threats on the network?
-   
-7. How would you monitor network throughput and latency over the network?
+2. Azure およびオンプレミスのデータ センターにおいてこれらのコントロールをどのように監視する予定ですか。
 
-*Windows Virtual Desktop image*
+3. 転送中および保存時のデータのデータ漏えいをどのように防止しますか。
 
-1. How will the standardized desktop image be created?
-   
-2. How will applications be delivered to the desktop image?
-   
-3. What are the connection options for users to access the Windows Virtual Desktop image?
-   
-4. What are the minimum system requirements for users to access the Windows Virtual Desktop image?   
+4. クラウドおよび現在の Active Directory インフラストラクチャの ID およびアクセス管理をどのように維持しますか。 またそれらをどのように同期しますか。
 
-*Windows Virtual Desktop host pool*
-       
-1. How many concurrent sessions will be required to access the virtual desktop image?
-   
-2. How many virtual machines are required to support the number of concurrent sessions?
+5. セキュアで一元化されたファイル ストレージを求める組織のニーズにどのように対処しますか。
 
+6. 特定のセキュリティ サービスが選択された理由を説明してください。
 
-**Prepare**
+ネットワーキング
 
-Directions: With all participants at your table:
+1. どのリージョンにリソースを展開しますか。またそれはなぜですか。
 
-1. Identify any customer needs that are not addressed with the proposed solution.
+2. 設計をサポートするためにどのようにリソース グループを設計しますか。
 
-2. Identify the benefits of your solution.
+3. 仮想ネットワーク (VNET) は IP アドレスとサブネットに対してどのように構成されますか。
 
-3. Determine how you will respond to the customer's objections.
+4. 待機時間を最小限に抑えてセキュリティを最大限にするために、Contoso Healthcare のデータ センターにどのように接続しますか。
 
-Prepare a 15-minute chalk-talk style presentation to the customer.
+5. ユーザーが安全に接続するために、どの受信ポート (存在する場合) をセッション ホストに対してオープンにする必要がありますか。
 
-## Step 3: Present the solution
+6. ネットワーク上の脅威を特定および監視するために何を使用しますか。
 
-**Outcome**
+7. ネットワーク全体でネットワーク スループットと待機時間をどのように監視しますか。
 
-Present a solution to the target customer audience in a 15-minute chalk-talk format.
+Windows Virtual Desktop イメージ
 
-Timeframe: 30 minutes
+1. 標準化されたデスクトップ イメージはどのように作成されますか。
 
-**Presentation**
+2. アプリケーションはどのようにデスクトップ イメージに配信されますか。
 
-Directions:
+3. ユーザーが Windows Virtual Desktop イメージにアクセスできるようにするためのどのような接続オプションがありますか。
 
-1. Pair with another table.
+4. ユーザーが Windows Virtual Desktop イメージにアクセスできるようにするための最小システム要件はどのようなものですか。
 
-2. One table is the Microsoft team and the other table is the customer.
+Windows Virtual Desktop ホスト プール
 
-3. The Microsoft team presents their proposed solution to the customer.
+1. Virtual Desktop イメージにアクセスするためにいくつの同時セッションが必要になりますか。
 
-4. The customer makes one of the objections from the list of objections.
+2. 同時セッションの数をサポートするために何台の仮想マシンが必要になりますか。
 
-5. The Microsoft team responds to the objection.
+**準備**
 
-6. The customer team gives feedback to the Microsoft team.
+指示: テーブルのすべての参加者と共に、以下を行います。
 
-7. Tables switch roles and repeat Steps 2-6.
+1. 提案したソリューションでは対応していない顧客ニーズを特定します。
 
-## Wrap-up
+2. ソリューションの利点を特定します。
 
-Timeframe: 15 minutes
+3. 顧客の反論にどのように回答するかを決定します。
 
-Directions: Tables reconvene with the larger group to hear the facilitator/SME share the preferred solution for the case study.
+顧客に対する 15 分のチョークトーク形式のプレゼンテーションを準備します。
 
-## Additional references
+## ステップ 3: ソリューションをプレゼンテーションする
+
+**成果**
+
+顧客の対象者にソリューションを 15 分のチョークトーク形式でプレゼンテーションする
+
+所要時間: 30 分
+
+**プレゼンテーション**
+
+指示:
+
+1. 別のテーブルとペアを組みます。
+
+2. 一方のテーブルはマイクロソフト チーム、他方のテーブルは顧客とします。
+
+3. マイクロソフト チームは提案ソリューションを顧客にプレゼンテーションします。
+
+4. 顧客は反論リストから反論を 1 つ行います。
+
+5. マイクロソフト チームは反論に回答します。
+
+6. 顧客チームはマイクロソフト チームにフィードバックを提供します。
+
+7. テーブル間で役割を切り替えて、ステップ 2 ～ 6 を繰り返します。
+
+## まとめ
+
+所要時間: 15 分
+
+指示: より大きなグループでテーブルに再度集まり、ファシリテーター/SME がこのケース スタディの推奨ソリューションを共有するのを聞きます。
+
+## 追加リファレンス
 
 |    |            |
-|----------|:-------------:|
-| **Description** | **Links** |
-| Overview of Windows Virtual Desktop | <https://docs.microsoft.com/en-us/azure/virtual-desktop/overview> |
-| Windows Virtual Desktop environment setup | <https://docs.microsoft.com/en-us/azure/virtual-desktop/environment-setup> |
-| Create a virtual desktop host pool | <https://docs.microsoft.com/en-us/azure/virtual-desktop/create-host-pools-azure-marketplace> |
-| Windows Virtual Desktop licensing requirements and pricing | <https://azure.microsoft.com/en-us/pricing/details/virtual-desktop/> |
-| Prepare and customize a master VHD image | <https://docs.microsoft.com/en-us/azure/virtual-desktop/set-up-customize-master-image> |
-| Azure Policy overview | <https://docs.microsoft.com/en-us/azure/governance/policy/overview> |
-| Azure Security Center | <https://docs.microsoft.com/en-us/azure/security-center/> |
-| Azure Active Directory | <https://docs.microsoft.com/en-us/azure/active-directory/> |
-| FSLogix File Storage containers in Windows Virtual Desktop | <https://docs.microsoft.com/en-us/azure/virtual-desktop/fslogix-containers-azure-files> |
-| Connect WVD with a web client | <https://docs.microsoft.com/en-us/azure/virtual-desktop/connect-web> |
-| WVD security best practices | <https://docs.microsoft.com/en-us/azure/virtual-desktop/security-guide> |
-| Microsoft 365 enterprise plans | <https://www.microsoft.com/en-us/microsoft-365/compare-microsoft-365-enterprise-plans> |
-| Microsoft 365 Enterprise Mobility + Security plans | <https://www.microsoft.com/en-us/microsoft-365/enterprise-mobility-security/compare-plans-and-pricing?rtc=1> |
-| Windows Virtual Desktop partners | <https://docs.microsoft.com/en-us/azure/virtual-desktop/partners> |
+|----------|:----------:
+| **説明**| **リンク**
+| Windows Virtual Desktop の概要| <https://docs.microsoft.com/ja-jp/azure/virtual-desktop/overview>
+| Windows Virtual Desktop 環境のセットアップ| <https://docs.microsoft.com/ja-jp/azure/virtual-desktop/environment-setup>
+| 仮想デスクトップ ホスト プールの作成| <https://docs.microsoft.com/ja-jp/azure/virtual-desktop/create-host-pools-azure-marketplace>
+| Windows Virtual Desktop のライセンス要件と価格設定| <https://azure.microsoft.com/ja-jp/pricing/details/virtual-desktop/>
+| マスター VHD イメージを準備してカスタマイズする| <https://docs.microsoft.com/ja-jp/azure/virtual-desktop/set-up-customize-master-image>
+| Azure Policy の概要| <https://docs.microsoft.com/ja-jp/azure/governance/policy/overview>
+| Azure Security Center| <https://docs.microsoft.com/ja-jp/azure/security-center/>
+| Azure Active Directory| <https://docs.microsoft.com/ja-jp/azure/active-directory/>
+| Windows Virtual Desktop の FSLogix ファイル ストレージ コンテナー| <https://docs.microsoft.com/ja-jp/azure/virtual-desktop/fslogix-containers-azure-files>
+| Web クライアントを使用して WVD へ接続する| <https://docs.microsoft.com/ja-jp/azure/virtual-desktop/connect-web>
+| WVD セキュリティのベスト プラクティス| <https://docs.microsoft.com/ja-jp/azure/virtual-desktop/security-guide>
+| Microsoft 365 Enterprise プラン| <https://www.microsoft.com/ja-jp/microsoft-365/compare-microsoft-365-enterprise-plans>
+| Microsoft 365 Enterprise Mobility + Security プラン| <https://www.microsoft.com/ja-jp/microsoft-365/enterprise-mobility-security/compare-plans-and-pricing?rtc=1>
+| Windows Virtual Desktop のパートナー| <https://docs.microsoft.com/ja-jp/azure/virtual-desktop/partners>
 
-# Implementing Windows Virtual Desktop in the enterprise whiteboard design session trainer guide
+# エンタープライズでの Windows Virtual Desktop の実装のためのホワイトボード設計セッション トレーナー ガイド
 
-## Step 1: Review the customer case study
+## ステップ 1: 顧客のケース スタディの確認
 
-- Check in with your table participants to introduce yourself as the trainer.
+- テーブルの参加者に会い、自身をトレーナーとして自己紹介する。
 
-- Ask, "What questions do you have about the customer case study?"
+- "顧客のケース スタディについてどのような質問があるか" と尋ねる。
 
-- Briefly review the steps and timeframes of the whiteboard design session.
+- ホワイトボード設計セッションのステップと所要時間を簡単に確認する。
 
-- Ready, set, go! Let the table participants begin.
+- 準備が整ったら、テーブルの参加者に開始させる。
 
-## Step 2: Design a proof of concept solution
+## ステップ 2: 概念実証ソリューションの設計
 
-- Check in with your tables to ensure that they are transitioning from step to step on time.
+- テーブルを回り、各ステップが時間どおりに進んでいることを確認する。
 
-- Provide some feedback on their responses to the business needs and design.
-
-  - Try asking questions first that will lead the participants to discover the answers on their own.
-
-- Provide feedback for their responses to the customer's objections.
-
-  - Try asking questions first that will lead the participants to discover the answers on their own.
-
-## Step 3: Present the solution
-
-- Determine which table will be paired with your table before Step 3 begins.
-
-- For the first round, assign one table as the presenting team and the other table as the customer.
-
-- Have the presenting team present their solution to the customer team.
-
-  - Have the customer team provide one objection for the presenting team to respond to.
-
-  - The presentation, objections, and feedback should take no longer than 15 minutes.
-
-  - If needed, the trainer may also provide feedback.
-
-## Wrap-up
-
-- Have the table participants reconvene with the larger session group to hear the facilitator/SME share the following preferred solution.
-
-## Preferred target audience
-
-- Ken Greenwood, Contoso Healthcare CTO
-
-- Laura Knight, Contoso Healthcare CISO
-
-- Desktop Administrators
-
-- Service Delivery Managers
-
-- Infrastructure, Virtualization, Storage, and Networking Teams
-
-## Preferred solution
-
-*High-level architecture*
-
-Design a Windows Virtual Desktop infrastructure that addresses the needs and requirements of the organization. Provide details of your implementation. Make sure to document your design with a diagram along with addressing the questions.  Address the requirements in the following areas:
-
-*Microsoft 365*
-
-1. What Microsoft 365 subscription is required for Windows 10 multi-user licensing?
-   
-   Microsoft 365 licenses that support Windows Virtual Desktop include M365 E3, E5, A3, A5, F3, and Business Premium.
-
-2. What subscription is required for Contoso's mobile device requirements?
-   
-   Microsoft Enterprise Mobility + Security E3 or E5 are required for Intune MDM.
-
-3. What subscription is needed to classify and protect PHI and PII access?
-   
-   A Microsoft 365 E5 license is required for the full suite of data protection, information protection and classification, and advanced threat protection capabilities.
-
-4. What subscription is necessary to enforce device access on the local network only?
-   
-   Conditional access policies are available on EMS E3 and E5.  However, risk-based conditional access policies are only available on EMS E5, which would be best suited for this organization.
-
-5. Why did you select the Microsoft 365 subscription(s)?
-
-   A Microsoft 365 Enterprise E5 will be required with Enterprise Mobility + Security E5 to support the full list of requirements outlined by the customer.  Microsoft 365 licenses that support Windows Virtual Desktop include M365 E3, E5, A3, A5, F3, and Business Premium.  However, the additional requirements for mobile device management, data classification and information protection, and conditional access policies require the E5 and EMS E5 licenses.  Business Premium licensing is also only supported to up to 300 users.
-
-*Security*
-
-1. What is required to audit, log, and monitor controls for ISO 27001 and HIPAA? 
-    
-    Azure Policy initiatives for ISO 27001 and HIPAA should be enabled for the resource groups that are created to govern the Windows Virtual Desktop infrastructure.  In addition, Azure Security Center should be upgraded to the Standard tier subscription to properly monitor and alert on control compliance to ISO 27001 and HIPAA standards.
-    
-    To address compliance with the California Personal Protection Act, the Azure Policy initiative for GDPR will be assigned and custom policies will be added as needed to comply with the CPPA.
-
-2. How will you address monitoring these controls in Azure and the on-premises data centers?
-   
-   Azure Monitor agents should be installed on all Azure and on-premises virtual machines in order to govern the Azure Policy initiatives.  These agents will provide activity logs that can be monitored within Azure Security Center.
-
-    ATP should be used to monitor threats.
-    
-    Azure Sentinel should be used for incident response and investigation.
-
-3. How will you avoid data exposure for data in transit and data at rest?
-    
-    All connections for data in-transit will be transmitted through an encrypted SSL connection.  Data at-rest will be encrypted at-rest. 
-    
-    Cloud App Security for managing authorized applications. This will be used to block unauthorized cloud storage services to protect data from being copied.
-
-4. How will you maintain identity access management for the cloud and current Active Directory infrastructure, and how will they synchronize?
-    
-    The cloud identity will be created within Azure Active Directory.  This will be the primary identity source for Microsoft 365, Windows Virtual Desktop, and Azure services.  User identities from Active Directory Domain Services will be imported into Azure Active Directory to maintain user login credentials.  Azure AD Connect will be installed at Contoso Healthcare's data center in order to synchronize user credentials for single sign-on.  Password Hash Synchronization will be used so that users have the ability to authenticate through the data center Active Directory services or the cloud Azure Active Directory services.
-
-5. How will you address the secure and centralized file storage needs of the organization?
-    
-    Azure Files is the preferred method for storage use with Windows Virtual Desktop.  In addition, FSLogix can be used in conjunction with Azure Files to manage user virtual desktop profiles.  Azure Files must be deployed in the same region as the Virtual Machine pools.
-
-6. Describe the reasons for the specific security services selected.
-
-    Azure Monitor, Log Analytics, ATP, Cloud App Security, Azure Security Center, and Azure Sentinel will provide services to monitor, manage and investigate any potential vulnerabilities, threats, or anomalies within the environment to protect users and data across Azure, Microsoft 365, and on-premises resources.
-
-*Networking*
-
-1. In what region or regions will you deploy resources and why?
-    
-    In order to decrease latency West US and East US regions should be peered in Azure to decrease latency to California and Northern Virginia.
-    
-    A single resource group will be deployed for the Window Virtual Desktop infrastructure resources.
-    
-2. How will you design the resource groups to support your design?
-    
-    The entire Windows Virtual Desktop infrastructure should be created within a single resource group.  This will allow for ease of management of the resources and the ability to analyze and review the consumption easily within the Azure subscription.  
-       
-3. How will your virtual networks (VNETs) be configured for IP addresses and subnets?
-
-    The resource group should be configured with at least three separate VNETs with subnets.  The first would be the VNET for the Virtual Desktop hostpool, the second will be the VNET used to connect to the on-premises network, and the third would be a VNET for a Bastion host to be used for secure virtual machine access for support.  The VNETs will be peered with only the Virtual Desktop hostpool VNET having gateway access for security.  This configuration of VNETs provides a level of isolation to the networks for security and control.
-
-4. How will you connect to Contoso Healthcare's data centers to minimize latency and maximize security?
-    
-    The VNET identified above will connect the on-premises network utilizing an Azure Firewall that creates a site-to-site VPN connection to the primary datacenter in Los Angeles.  The recommendation would be to also utilize an Azure ExpressRoute connection directly from the Los Angeles datacenter to Azure West US, if available, and the VPN be used for backup connectivity to maximize connection speed and security, and East US to the Northern Virginia datacenter.
-
-5. What inbound ports, if any, need to be open to the session hosts for users to connect securely? 
-    
-    The answer is none. Because of reverse-connect, no inbound ports are required to the session hosts, thus reducing the attack surface 
-    (https://docs.microsoft.com/en-us/azure/virtual-desktop/security-guide#session-host-security-best-practices).
-
-6. What will you use to identify and monitor threats on the network?
-    
-    Azure Monitor, Azure Log Analytics, and Advanced Threat Protection should all be turned on with actions and alerts to the security group.  
-    
-    The Azure Security Center standard subscription will provide a central dashboard for monitoring, locating, and alerting on common threats found in the Microsoft Threat database.
-    
-    Network Watcher will be utilized to monitor network connection speeds and health.
-    
-    Service Map will be utilized for additional monitoring of virtual machines.
-    
-    Azure Sentinel will be the central source for incident response and investigation of threats, vulnerabilities, and anomalies.
-
-7. How would you monitor network throughput and latency over the network?
-    
-    Turning on Network Watcher within the VNETs will provide logs and analysis of the network speeds across VNETs and to the on-premises network.
-
-*Windows Virtual Desktop image*
-
-1. How will the standardized desktop image be created?
-
-    The recommendation would be to create the managed WVD image that Contoso Healthcare is wanting to deliver to their users. Optionally, they could also create a VHD for the standard image.  Details on this process are in the links provided in the student guide.  Another option is to have an image created with Windows 10 multi-user licensing and Office365 ProPlus at the time of creating the Windows Virtual Desktop host pool, and then making adjustments to that image based on custom requirements. You could use the following automated image building solutions to create and manage this image, such as Azure Image Builder (https://docs.microsoft.com/en-us/azure/virtual-machines/windows/image-builder-overview) or Build image with Packer (https://docs.microsoft.com/en-us/azure/virtual-machines/windows/build-image-with-packer) to manage images in Azure. 
-
-2. How will applications be delivered to the desktop image?
-    
-    To simplify the application delivery and licensing, Contoso Healthcare would like to leverage the current Citrix infrastructure that they have in place.  To accomplish this, a shortcut can be provided on the standard desktop image for the Citrix app marketplace that provides users with the applications they are authorized to access.
-
-3. What are the connection options for users to access the Windows Virtual Desktop image?
-    
-    There are multiple connection options for users to access their Windows Virtual Desktop.  The Remote Desktop client application can be used with Windows 10, Windows 7, Android, macOS, or iOS.  Users can also connect through an HTML5-capable web browser.  Since we are unsure of the full scope of operating systems on the 500 existing workstations within Contoso Healthcare, we recommend connection through the web browser on desktop devices, and using the Remote Desktop app on mobile devices.
-
-4. What are the minimum system requirements for users to access the Windows Virtual Desktop image?
-
-    Officially supported browsers are Microsoft Edge, Internet Explorer, Apple Safari, Google Chrome, and Mozilla Firefox (v55 or higher).  Windows 10, Windows 10 IoT Enterprise, Windows 7, and macOS operating systems are supported.  Microsoft Remote Desktop app is available for Android and iOS mobile devices.    
-
-*Windows Virtual Desktop host pool*
+- ビジネス ニーズと設計への回答について何らかのフィードバックを提供する。
   
-1. How many concurrent sessions will be required to access the virtual desktop image?
-    
-    We will design the capacity to support the full 250 sessions that were identified in our initial discussions with the customer. 
+  - 最初に、参加者が自分自身で回答を見つけやすくなるような質問をしてみる。
 
-2. How many virtual machines are required to support the number of concurrent sessions?
-    
-    You should have used the Azure pricing calculator to create an initial capacity estimate.  This estimate calculated at most 31 DS2s v3 instances as the base availability set with 8 virtual desktop sessions per host (according to: https://docs.microsoft.com/en-us/windows-server/remote/remote-desktop-services/virtual-machine-recs).  Additional instances to scale as capacity increases.  The example estimate can be accessed here: https://azure.com/e/296a636cede24f1c859b42a63687c80c.
+- 顧客の反論への回答にフィードバックを提供する。
+  
+  - 最初に、参加者が自分自身で回答を見つけやすくなるような質問をしてみる。
 
-*Diagram of the on-premises to Azure Windows Virtual Desktop solution*
+## ステップ 3: ソリューションをプレゼンテーションする
 
-   This diagram shows the possible solution for Contoso's Windows Virtual Desktops.  The California datacenter is connecting to the Azure West US region, and the Northern Virginia datacenter is connecting to the East US region utilizing ExpressRoutes to each.  The West US and East US region VNETs are peered for high-speed backbone connection with a pass-through peering allowed from East US to the WVD VM host pool VNET that is peered with West US.
-    
-   ![Diagram showing the the on-premises to Azure Windows Virtual Desktop solution as described above.](images/wvdsolutiondiagramv2.png "On-premises to Azure Windows Virtual Desktop solution")
+- ステップ 3 の開始前に、どのテーブルが自分のテーブルとペアを組むかを決定する。
 
-## Checklist of preferred objection handling
+- 1 回目では、一方のテーブルをプレゼンテーション チームとして割り当て、他方を顧客として割り当てる。
 
-1. The CTO at Contoso Healthcare does not want to invest in new workstations and mobile devices to support the standardized desktop image. Can these devices support the new image?
+- プレゼンテーション チームがそのソリューションを顧客チームにプレゼンテーションする。
+  
+  - プレゼンテーション チームが回答すべき反論を、顧客チームから 1 つ提供する。
+  
+  - プレゼンテーション、反論、およびフィードバックは 15 分以内に収める必要がある。
+  
+  - 必要に応じて、トレーナーもフィードバックを提供できる。
 
-    Windows Virtual Desktop is flexible in that users can access their virtual desktop.  The design will utilize web browser access to the virtual desktop on workstations, and the remote desktop app on mobile devices.  
+## まとめ
 
-2. The CISO at Contoso Healthcare needs to be convinced that data will not be exposed. How would Microsoft support the data protection needs for Contoso Healthcare?
+- より大きなセッション グループにテーブルの参加者を再度集め、ファシリテーター/SME が次の推奨ソリューションを共有するのを聞きます。
 
-    The designed solution for Contoso Healthcare includes Microsoft 365 E5 with Enterprise Mobility + Security (EMS) E5.  This provides a full suite of data and information protection to classify sensitive data and audit activity.  Cloud App Security can also be used to block access to unauthorized file sharing services to avoid users from copying files to unprotected locations.  Data protection controls can be monitored through Microsoft 365 Security Policy Advisor, and Azure Security Center.
+## 推奨される対象者
 
-3. Contoso Healthcare must be able to log and audit all activity on the desktop image.  How will this be handled within the cloud and on-premises environments?
-    
-    Azure Monitor and Azure Log Analytics will be activated within the Azure environment.  Azure Monitor agents will be deployed to the session hosts in Azure and the on-premises devices (laptops, phones) to monitor activity across the entire infrastructure. 
+- Ken Greenwald 氏、Contoso Healthcare CTO
 
-4. Connections between the cloud and existing data centers must be secure and reliable to support their requirements.  How will this be addressed and monitored?
+- Laura Knight 氏、Contoso Healthcare CISO
 
-    The initial design will utilize a secure and encrypted site-to-site VPN connections from Azure to the California and Northern Virginia data centers.  An option has also been provided to utilize an Azure ExpressRoute connection to provide private dedicated connectivity from Azure to the California and Northern Virginia data centers.  Network Watcher will be used to monitor network traffic and throughput over the connections.  Azure Security Center and Advanced Threat Protection will be in place to monitor and alert on potential vulnerabilities and threats.
+- デスクトップ管理者
 
-5. Contoso Healthcare has made a substantial capital investment in their current data centers that they do not want to decommission. How can the infrastructure be architected to support the current data centers?
+- サービス デリバリー マネージャー
 
-    The designed solution has been architected to integrate the current application delivery configuration through Citrix into the standardized Windows Virtual Desktop image.  In addition, Azure AD Connect will be used with hash synchronization to provide a single sign-on environment between the Azure Active Directory identity management and the existing on-premises Active Directory domain.  As hardware is depreciated within the current data centers, application servers can be migrated to Azure and the Windows Virtual Desktop image can be updated for the new location of these servers.
+- インフラストラクチャ、仮想化、ストレージ、およびネットワーキングの各チーム
 
-## Customer quote (to be read back to the attendees at the end)
+## 推奨ソリューション
 
-"Microsoft has designed a secure and manageable infrastructure that can grow with Contoso Healthcare. This depth and breadth will allow us to meet both our business needs and regulatory requirements for our applications. Not to mention ensuring that our healthcare practitioners will have access to the patient data that they need when they need it."
+アーキテクチャの概要
 
-Ken Greenwald, CTO of Contoso Healthcare
+組織のニーズと要件に対応する Windows Virtual Desktop インフラストラクチャを設計します。実装の詳細を示してください。図を使用して設計を文書化し、質問に答えるようにしてください。以下の分野における要件に対応します。
+
+Microsoft 365
+
+1. Windows 10 マルチユーザー ライセンスには、どの Microsoft 365 サブスクリプションが必要ですか。
+   
+   Windows Virtual Desktop をサポートする Microsoft 365 ライセンスには、M365 E3、E5、A3、A5、F3、および Business Premium が含まれます。
+
+2. Contoso のモバイル デバイス要件にはどのサブスクリプションが必要ですか。
+   
+   Intune MDM には、Microsoft Enterprise Mobility + Security E3 または E5 が必要です。
+
+3. PHI および PII アクセスを分類および保護するには、どのサブスクリプションが必要ですか。
+   
+   データ保護、情報保護と分類、および高度な脅威防止機能の完全なスイートには、Microsoft 365 E5 ライセンスが必要です。
+
+4. ローカル ネットワークのみでデバイスのアクセスを適用するには、どのサブスクリプションが必要ですか。
+   
+   条件付きアクセス ポリシーは EMS E3 および E5 で利用できます。ただし、リスクベースの条件付きアクセス ポリシーは EMS E5 でのみ利用可能であるため、この組織にはこちらが最適であると言えます。
+
+5. Microsoft 365 サブスクリプションを選択したのはなぜですか。
+   
+   お客様によって説明されたすべての要件をサポートするには、Microsoft 365 Enterprise E5 の Enterprise Mobility + Security E5 が必要になります。Windows Virtual Desktop をサポートする Microsoft 365 ライセンスには、M365 E3、E5、A3、A5、F3、および Business Premium が含まれます。ただし、モバイル デバイス管理、データ分類と情報保護、および条件付きアクセス ポリシーの追加の要件には、E5 および EMS E5 ライセンスが必要です。Business Premium ライセンスも、最大 300 人のユーザーまでであればサポートされます。
+
+セキュリティ
+
+1. ISO 27001 および HIPAA のためのコントロールを監査、ログ記録、および監視するために何が必要ですか。
+   
+   ISO 27001 および HIPAA のための Azure Policy イニシアチブが、Windows Virtual Desktop インフラストラクチャを管理するために作成されたリソース グループに対して有効にされている必要があります。さらに、Azure Security Center を Standard レベルのサブスクリプションにアップグレードして、ISO 27001 および HIPAA 標準へのコントロールのコンプライアンスを適切に監視し、アラートを設定することが必要です。
+   
+   カリフォルニア州の個人情報保護法へのコンプライアンスに対応するために、GDPR のための Azure Policy イニシアチブが割り当てられ、CPPA に準拠するために必要に応じてカスタム ポリシーが追加されます。
+
+2. Azure およびオンプレミスのデータ センターにおいてこれらのコントロールをどのように監視する予定ですか。
+   
+   Azure Policy イニシアチブを管理するために、すべての Azure およびオンプレミスの仮想マシンに Azure Monitor エージェントがインストールされます。これらのエージェントは、Azure Security Center 内で監視できるアクティビティ ログを提供します。
+   
+   脅威監視のために ATP を使用する必要があります。
+   
+   インシデント対応と調査のために Azure Sentinel を使用する必要があります。
+
+3. 転送中および保存時のデータのデータ漏えいをどのように防止しますか。
+   
+   データ転送のためのすべての接続は、暗号化された SSL 接続を経由して行われます。保存時のデータは、保存中暗号化されます。
+   
+   承認済みアプリケーションを管理するために Cloud App Security が使用されます。これは、未承認のクラウド ストレージ サービスをブロックして、データがコピーされることを防ぐために使用されます。
+
+4. クラウドおよび現在の Active Directory インフラストラクチャの ID およびアクセス管理をどのように維持しますか。またそれらをどのように同期しますか。
+   
+   クラウド ID は、Azure Active Directory 内で作成されます。これは、Microsoft 365、Windows Virtual Desktop、および Azure サービスで使用される主要な ID ソースとなります。Active Directory ドメイン サービスのユーザー ID は、Azure Active Directory にインポートされて、ユーザーのログイン資格情報が維持されます。Contoso Healthcare のデータ センターには Azure AD Connect がインストールされて、シングル サインオンを提供するためにユーザーの資格情報が同期されます。パスワード ハッシュ同期が使用され、ユーザーがデータ センターの Active Directory サービスまたはクラウドの Azure Active Directory サービスを通して認証できるようになります。
+
+5. セキュアで一元化されたファイル ストレージを求める組織のニーズにどのように対処しますか。
+   
+   Azure Files は、Windows Virtual Desktop でストレージを使用する際に推奨される方法です。さらに、Azure Files と組み合わせて FSLogix を使用して、ユーザーの仮想デスクトップ プロファイルを管理することができます。Azure Files は、仮想マシン プールと同じリージョンで展開する必要があります。
+
+6. 特定のセキュリティ サービスが選択された理由を説明してください。
+   
+   Azure Monitor、Log Analytics、ATP、Cloud App Security、Azure Security Center、および Azure Sentinel は、環境内の潜在的な脆弱性、脅威、または異常を監視、管理、および調査して、Azure、Microsoft 365、およびオンプレミス リソース間でユーザーとデータを保護します。
+
+ネットワーキング
+
+1. どのリージョンにリソースを展開しますか。またそれはなぜですか。
+   
+   カリフォルニア州およびバージニア州北部の待機時間を短縮するために、米国西部と米国東部のリージョンを Azure でピアリングする必要があります。
+   
+   Window Virtual Desktop インフラストラクチャ リソースに対して単一のリソース グループを展開します。
+
+2. 設計をサポートするためにどのようにリソース グループを設計しますか。
+   
+   Windows Virtual Desktop インフラストラクチャ全体を単一のリソース グループ内で作成する必要があります。これによって、リソースの管理が容易になり、Azure サブスクリプション内で容易に消費量を分析およびレビューできるようになります。
+
+3. 仮想ネットワーク (VNET) は IP アドレスとサブネットに対してどのように構成されますか。
+   
+   リソース グループは、少なくとも 3 つの個別の VNET およびサブネットで構成される必要があります。最初のものは Virtual Desktop ホストプールの VNET で、2 番目のものはオンプレミス ネットワークに接続するために使用される VNET で、3 番目はサポートのためのセキュアな仮想マシンのアクセスに利用される Bastion ホストの VNET です。VNET は、セキュリティのためにゲートウェイ アクセスを有する Virtual Desktop ホストプールの VNET とのみピアリングされます。この VNET の構成により、セキュリティと制御を実現するためのある程度の分離がネットワークにもたらされます。
+
+4. 待機時間を最小限に抑えてセキュリティを最大限にするために、Contoso Healthcare のデータ センターにどのように接続しますか。
+   
+   上記で特定された VNET は、ロサンゼルスのプライマリ データセンターへのサイト間 VPN 接続を作成する Azure Firewall を利用して、オンプレミス ネットワークに接続します。推奨される方法として、可能な場合は、ロサンゼルスのデータセンターから Azure 米国西部へ直接 Azure ExpressRoute 接続も利用し、接続の速度とセキュリティを最大化するためのバックアップ接続として米国東部からバージニア州北部のデータ センターへ VPN を使用します。
+
+5. ユーザーが安全に接続するために、どの受信ポート (存在する場合) をセッション ホストに対してオープンにする必要がありますか。
+   
+   受信ポートは使用しません。逆方向接続のため、セッション ホストに受信ポートは必要ではなく、それによって攻撃対象領域が縮小されます (https://docs.microsoft.com/ja-jp/azure/virtual-desktop/security-guide#session-host-security-best-practices)。
+
+6. ネットワーク上の脅威を特定および監視するために何を使用しますか。
+   
+   Azure Monitor、Azure Log Analytics、および Advanced Threat Protection では、セキュリティ グループに対するアクションおよびアラートを有効にする必要があります。
+   
+   Azure Security Center の Standard サブスクリプションは、マイクロソフトの脅威データベースで検出された一般的な脅威を監視、特定、およびアラートを設定するための一元的なダッシュボードを提供します。
+   
+   Network Watcher を利用して、ネットワーク接続の速度と正常性を監視します。
+   
+   サービス マップは、仮想ネットワークをさらに監視するために利用されます。
+   
+   Azure Sentinel は、インシデント対応と、脅威、脆弱性、および異常の調査を行うための中央のソースとなります。
+
+7. ネットワーク全体でネットワーク スループットと待機時間をどのように監視しますか。
+   
+   VNET 内で Network Watcher をオンにすると、VNET 全体およびオンプレミス ネットワークへのネットワークの速度のログおよび分析が可能になります。
+
+Windows Virtual Desktop イメージ
+
+1. 標準化されたデスクトップ イメージはどのように作成されますか。
+   
+   推奨されるのは、Contoso Healthcare がユーザーに提供したいマネージド WVD イメージを作成することです。オプションとして、標準イメージの VHD を作成することもできます。このプロセスの詳細は、受講者ガイドに記載されるリンクで紹介されています。さらに別のオプションとして、Windows Virtual Desktop ホスト プールの作成時に Windows 10 マルチユーザー ライセンスと Office365 ProPlus でイメージを作成し、その後カスタムの要件に基づいてそのイメージを調整することもできます。このイメージを作成および管理するために、Azure Image Builder (https://docs.microsoft.com/ja-jp/azure/virtual-machines/windows/image-builder-overview) のような自動化されたイメージ作成ソリューションを使用したり、Packer を使用してイメージを作成 (https://docs.microsoft.com/ja-jp/azure/virtual-machines/windows/build-image-with-packer) し、Azure でイメージを管理することができます。
+
+2. アプリケーションはどのようにデスクトップ イメージに配信されますか。
+   
+   アプリケーションの配信とライセンスを単純化するために、Contoso Healthcare は現在導入している Citrix インフラストラクチャを活用したいと考えています。これを実現するために、Citrix アプリ マーケットプレイスの標準のデスクトップ イメージにショートカットを提供して、アクセスを承認されたアプリケーションをユーザーに提供するようにできます。
+
+3. ユーザーが Windows Virtual Desktop イメージにアクセスできるようにするためのどのような接続オプションがありますか。
+   
+   ユーザーが Windows Virtual Desktop イメージにアクセスできるようにするための複数の接続オプションがあります。リモート デスクトップ クライアント アプリケーションは、Windows 10、Windows 7、Android、macOS、または iOS で使用できます。ユーザーは HTML5 対応 Web ブラウザーを介して接続することもできます。Contoso Healthcare 内の 500 台の既存のワークステーション上のオペレーティング システムの全容がわからないため、デスクトップ デバイス上の Web ブラウザーを介して、およびモバイル デバイス上のリモート デスクトップを使用して接続することをお勧めします。
+
+4. ユーザーが Windows Virtual Desktop イメージにアクセスできるようにするための最小システム要件はどのようなものですか。
+   
+   正式にサポートされるブラウザーは、Microsoft Edge、Internet Explorer、Apple Safari、Google Chrome、および Mozilla Firefox (v55 以降) です。Windows 10、Windows 10 IoT Enterprise、Windows 7、および macOS オペレーティング システムがサポートされます。Microsoft Remote Desktop アプリは、Android および iOS モバイル デバイスで利用できます。
+
+Windows Virtual Desktop ホスト プール
+
+1. Virtual Desktop イメージにアクセスするためにいくつの同時セッションが必要になりますか。
+   
+   マイクロソフトでは、お客様との初回ディスカッションで特定された 250 セッションすべてをサポートするよう容量を設計する予定です。
+
+2. 同時セッションの数をサポートするために何台の仮想マシンが必要になりますか。
+   
+   初期容量の見積りを行うために、Azure の料金計算ツールを使用されたことでしょう。この見積りは、最大 31 台の DS2s v3 インスタンスを基本の可用性セットとして、ホストごとに 8 つの仮想デスクトップ セッションを使用して計算されました (参照先: https://docs.microsoft.com/ja-jp/windows-server/remote/remote-desktop-services/virtual-machine-recs)。容量が増加するにつれ、インスタンスを追加してスケーリングします。サンプルの見積りはこちらで確認できます。 https://azure.microsoft.com/ja-jp/pricing/calculator/
+
+オンプレミスから Azure Windows Virtual Desktop ソリューションへの図
+
+この図は、Contoso の Windows Virtual Desktop で考えられるソリューションを示しています。カリフォルニア州のデータ センターは Azure の米国西部リージョンに、バージニア州北部のデータ センターは米国東部リージョンに、それぞれ ExpressRoutes を利用して接続しています。米国西部および米国東部リージョンの VNET は、高速のバックボーン接続のためにピアリングされ、米国東部から、米国西部とピアリングされた WVD VM ホスト プール VNET へのパススルー ピアリングが可能になります。
+
+![前述のオンプレミスから Azure Windows Virtual Desktop ソリューションを示す図です。 ](images/wvdsolutiondiagramv2.png "オンプレミスから Azure Windows Virtual Desktop ソリューション")
+
+## 反論への推奨される対応のチェックリスト
+
+1. Contoso Healthcare の CTO は、標準化されたデスクトップ イメージをサポートするために新しいワークステーションとモバイル デバイスに投資することを望んでいません。これらのデバイスで新しいイメージをサポートできるでしょうか。
+   
+   Windows Virtual Desktop は、ユーザーがそれぞれの仮想デスクトップにアクセスする方法において柔軟性があります。ワークステーション上の仮想デスクトップ、およびモバイル デバイス上のリモート デスクトップ アプリへの Web ブラウザー アクセスを利用するよう設計されています。
+
+2. Contoso Healthcare の CISO を、データが漏えいすることはないと説得する必要があります。マイクロソフトは Contoso Healthcare のデータ保護のニーズをどのようにサポートできるでしょうか。
+   
+   Contoso Healthcare のために設計されたソリューションには、Microsoft 365 E5 の Enterprise Mobility + Security (EMS) E5 が含まれます。これにより、機密データを分類し、アクティビティを監査するためのデータおよび情報保護機能の完全なスイートが提供されます。また、Cloud App Security を使用して、未承認のファイル共有サービスへのアクセスをブロックして、ユーザーが保護されていない場所にファイルをコピーするのを防止することもできます。データ保護コントロールは、Microsoft 365 のセキュリティ ポリシー アドバイザーと、Azure Security Center を介して監視できます。
+
+3. Contoso Healthcare ではデスクトップ イメージ上のすべてのアクティビティをログ記録して監査できる必要があります。クラウドおよびオンプレミス環境上でこれにどのように対処できるでしょうか。
+   
+   Azure Monitor および Azure Log Analytics は、Azure 環境内で有効化されます。インフラストラクチャ全体のアクティビティを監視するために、Azure Monitor エージェントが Azure およびオンプレミスのデバイス (ノート PC、電話) のセッション ホストに展開されます。
+
+4. 要件を満たすためには、クラウドと既存のデータ センター間の接続はセキュアで信頼性が高いものである必要があります。どのようにこの点を解決し、監視できるでしょうか。
+   
+   初期設計で、Azure からカリフォルニア州およびバージニア州北部のデータ センターへのセキュアで暗号化されたサイト間 VPN 接続が利用されます。Azure からカリフォルニア州およびバージニア州北部のデータ センターへのプライベート専用接続を提供するために、Azure ExpressRoute 接続を利用するオプションも提供されます。接続のネットワーク トラフィックとスループットを監視するために Network Watcher が使用されます。Azure Security Center および Advanced Threat Protection は、潜在的な脆弱性と脅威を監視し、アラートを設定するために配備されます。
+
+5. Contoso Healthcare は、現在のデータ センターにかなりの設備投資を行ってきているため、それらを使用停止にすることは望んでいません。現在のデータ センターをサポートするよう、どのようにインフラストラクチャを設計できますか。
+   
+   設計されたソリューションは、Citrix を介して、現在のアプリケーション配信構成を標準化された Windows Virtual Desktop イメージに統合するように設計されています。さらに、Azure AD Connect がハッシュ同期と共に使用されることで、Azure Active Directory ID 管理と既存のオンプレミス Active Directory ドメイン間でのシングル サインオン環境を提供します。ハードウェアは現在のデータ センター内で減価償却されるため、アプリケーション サーバーは Azure に移行でき、Windows Virtual Desktop イメージはこれらのサーバーの新しい場所に更新することができます。
+
+## 顧客の声 (最後に出席者に対して読み上げる)
+
+「マイクロソフトによって、Contoso Healthcare と共に成長することが可能な、セキュアで管理しやすいインフラストラクチャを設計できました。この幅広さと奥深さによって、当社のビジネス ニーズと、アプリケーションの規制要件の両方を満たすことが可能になります。言うまでもなく、医療従事者が、必要な時に、必要な患者データに確実にアクセスすることが可能になります」
+
+Ken Greenwald 氏、CTO、Contoso Healthcare
